@@ -1,1 +1,8 @@
-main/java/com/scribere/backend/config/FlywayConfig.class
+com/scribere/backend/mapper/ArticleMapper.class
+com/scribere/backend/config/WebConfig.class
+com/scribere/backend/model/Article.class
+com/scribere/App.class
+com/scribere/backend/config/FlywayConfig.class
+com/scribere/backend/controller/ArticleController.class
+com/scribere/backend/dto/ArticleDto.class
+com/scribere/backend/repository/ArticleRepository.class

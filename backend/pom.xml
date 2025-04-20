@@ -14,14 +14,18 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.4</version>
+        <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     
     <!-- 2. Propriétés de compilation -->
     <properties>
-        <java.version>21</java.version>
+        <java.version>22</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <byte-buddy.version>1.14.13</byte-buddy.version>
+        <mockito.version>5.10.0</mockito.version>
+        <!-- Activer le mode expérimental de Byte Buddy pour Java 23 -->
+        <argLine>-Dnet.bytebuddy.experimental</argLine>
     </properties>
     
     <!-- 3. Dépendances pour une API REST -->
@@ -51,6 +55,14 @@
             </exclusions>
         </dependency>
 
+        <!-- Lombok pour la génération de code - une seule dépendance suffit -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -61,12 +73,6 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
-        
-        <!-- Support PostgreSQL pour Flyway -->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-database-postgresql</artifactId>
-        </dependency>
 
         <!-- PostgreSQL -->
         <dependency>
@@ -74,12 +80,35 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
+        <!-- Mockito Core avec version explicite pour supporter Java 23 -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ByteBuddy avec version explicite pour supporter Java 23 -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${byte-buddy.version}</version>
+        </dependency>
+        
+        <!-- ByteBuddy Agent pour Mockito -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>${byte-buddy.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     
     <!-- 4. Configuration du build et plugin Spring Boot -->
     <build>
         <plugins>
-            <!-- 4.1. Compiler en Java 21 -->
+            <!-- 4.1. Compiler en Java 22 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -87,6 +116,26 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <release>${java.version}</release>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.30</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            
+            <!-- Plugin Surefire pour les tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Dnet.bytebuddy.experimental=true -Dmockito.mock.verification.cleaner.disabled=true</argLine>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
             
@@ -95,6 +144,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <!-- la version est héritée du parent -->
+                <configuration>
+                    <jvmArguments>
+                        -Dnet.bytebuddy.experimental=true -Dmockito.mock.verification.cleaner.disabled=true
+                    </jvmArguments>
+                    <mainClass>com.scribere.App</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

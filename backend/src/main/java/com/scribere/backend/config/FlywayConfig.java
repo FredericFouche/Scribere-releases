@@ -1,4 +1,4 @@
-package main.java.com.scribere.backend.config;
+package com.scribere.backend.config;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
