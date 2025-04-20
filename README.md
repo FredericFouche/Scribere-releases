@@ -1,5 +1,8 @@
 # Scribere
 
+![CI Frontend](https://github.com/FredericFouche/Scribere/actions/workflows/frontend.yml/badge.svg)
+![CI Backend](https://github.com/FredericFouche/Scribere/actions/workflows/backend.yml/badge.svg)
+
 Ce dépôt contient le backend et le frontend de l’application Scribere.
 
 ## Prérequis
