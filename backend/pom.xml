@@ -20,7 +20,7 @@
     
     <!-- 2. Propriétés de compilation -->
     <properties>
-        <java.version>22</java.version>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <byte-buddy.version>1.14.13</byte-buddy.version>
         <mockito.version>5.10.0</mockito.version>
@@ -108,7 +108,7 @@
     <!-- 4. Configuration du build et plugin Spring Boot -->
     <build>
         <plugins>
-            <!-- 4.1. Compiler en Java 22 -->
+            <!-- 4.1. Compiler en Java 1 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
