@@ -1,2 +1,8 @@
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/dto/ArticleDto.java
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/config/FlywayConfig.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/config/WebConfig.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/mapper/ArticleMapper.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/controller/ArticleController.java
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/App.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/repository/ArticleRepository.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/model/Article.java
