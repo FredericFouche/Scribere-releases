@@ -28,8 +28,6 @@ public class ArticleMapper {
         article.setCoverImgUrl(dto.getCoverImgUrl());
         article.setReadTime(dto.getReadTime());
         article.setContent(dto.getContent());
-        // Les champs createdAt et updatedAt sont gérés automatiquement par les
-        // annotations @PrePersist et @PreUpdate
         return article;
     }
 }
