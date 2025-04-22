@@ -49,3 +49,64 @@ docker-compose up --build
 	2.	Pour reconstruire uniquement une image spécifique :
 docker build -t scribere-backend:latest backend
 docker build -t scribere-frontend:latest frontend
+
+# Architecture en couches de l'application Scribere API
+
+## Vue d'ensemble
+
+L'application Scribere suit une architecture en couches classique inspirée du modèle MVC (Modèle-Vue-Contrôleur), avec une séparation claire des responsabilités entre les différents composants.
+
+## Couches principales
+
+### 1. Contrôleurs (Controllers)
+- **Responsabilité**: Gestion des requêtes HTTP et routage
+- **Exemple**: `ArticleController`
+- **Rôle**: Points d'entrée de l'API REST, validation des entrées, définition des endpoints
+
+### 2. Services (Services)
+- **Responsabilité**: Logique métier
+- **Exemple**: `ArticleService`
+- **Rôle**: Orchestration des opérations, règles métier, transactions
+
+### 3. Dépôts (Repositories)
+- **Responsabilité**: Accès aux données
+- **Exemple**: `ArticleRepository`
+- **Rôle**: Persistance et récupération des données, abstraction de la couche de stockage
+
+### 4. Modèles (Models)
+- **Responsabilité**: Représentation des entités métier
+- **Exemple**: `Article`
+- **Rôle**: Entités JPA mappées vers la base de données
+
+### 5. DTOs (Data Transfer Objects)
+- **Responsabilité**: Objets de transfert de données
+- **Exemple**: `ArticleDto`
+- **Rôle**: Structures dédiées à l'exposition des données via l'API
+
+### 6. Mappers (Mappers)
+- **Responsabilité**: Conversion entre entités et DTOs
+- **Exemple**: `ArticleMapper`
+- **Rôle**: Transformation des modèles en DTOs et vice-versa
+
+## Mécanismes transversaux
+
+### Communication par événements
+- **Mécanisme**: Utilisation du système d'événements de Spring
+- **Exemple**: `ArticleSavedEvent`
+- **Avantage**: Découplage entre les composants, extensibilité facile
+
+### Injection de dépendances
+- **Approche**: Injection par constructeur (moins de code, plus testable)
+- **Avantage**: Code plus testable, couplage faible entre composants
+
+### Configuration déclarative
+- **Structure**: pom.xml bien organisé avec des sections commentées
+- **Avantage**: Maintenance facilitée, lisibilité accrue
+
+## Résumé
+
+Cette architecture en couches permet:
+- Une **séparation claire des responsabilités**
+- Une **meilleure testabilité** de chaque composant isolément
+- Une **maintenance facilitée** grâce au découplage
+- Une **évolutivité améliorée** par l'utilisation des événements

@@ -1,8 +1,14 @@
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/dto/ArticleDto.java
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/config/FlywayConfig.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/config/MeilisearchConfig.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/service/SearchService.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/service/ArticleService.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/model/Article.java
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/config/WebConfig.java
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/mapper/ArticleMapper.java
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/controller/ArticleController.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/listener/ArticleIndexingListener.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/controller/SearchController.java
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/App.java
 /Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/repository/ArticleRepository.java
-/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/model/Article.java
+/Users/fred/repo/Scribere/backend/src/main/java/com/scribere/backend/event/ArticleSavedEvent.java

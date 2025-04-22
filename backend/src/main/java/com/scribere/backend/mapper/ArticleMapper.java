@@ -14,7 +14,22 @@ public class ArticleMapper {
         dto.setSlug(article.getSlug());
         dto.setCoverImgUrl(article.getCoverImgUrl());
         dto.setReadTime(article.getReadTime());
+        dto.setContent(article.getContent());
         dto.setCreatedAt(article.getCreatedAt());
+        dto.setUpdatedAt(article.getUpdatedAt());
         return dto;
+    }
+
+    public Article toEntity(ArticleDto dto) {
+        Article article = new Article();
+        article.setId(dto.getId());
+        article.setTitle(dto.getTitle());
+        article.setSlug(dto.getSlug());
+        article.setCoverImgUrl(dto.getCoverImgUrl());
+        article.setReadTime(dto.getReadTime());
+        article.setContent(dto.getContent());
+        // Les champs createdAt et updatedAt sont gérés automatiquement par les
+        // annotations @PrePersist et @PreUpdate
+        return article;
     }
 }
