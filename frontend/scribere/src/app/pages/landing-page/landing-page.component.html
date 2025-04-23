@@ -1,5 +1,5 @@
 <main>
-  <div class="landing-page">
+  <div class="landing-page pb-24 md:pb-60 xl:pb-0">
     <p
       class="catch-phrase padding-vertical text-7xl xs:text-8xl md:text-9xl mb-8"
     >
@@ -11,5 +11,34 @@
     <button routerLink="/signin" class="margin-vertical w-44">
       Start your journey
     </button>
+    <div class="illustration-container"></div>
   </div>
+
+  <!-- Illustration carroussel absolute -->
+  <section
+    class="aspect-[3/4] lg:w-[20%] xl:w-[30%] absolute right-12 xl:right-20 lg:top-1/4 xl:top-1/6 hidden lg:block"
+  >
+    <div class="relative w-full h-full overflow-hidden">
+      <img
+        src="assets/images/illustrations/illustration1.svg"
+        alt="Illustration 1"
+        class="absolute inset-0 w-full h-full object-contain opacity-0 carousel-img-1"
+      />
+      <img
+        src="assets/images/illustrations/illustration2.svg"
+        alt="Illustration 2"
+        class="absolute inset-0 w-full h-full object-contain opacity-0 carousel-img-2"
+      />
+      <img
+        src="assets/images/illustrations/illustration3.svg"
+        alt="Illustration 3"
+        class="absolute inset-0 w-full h-full object-contain opacity-0 carousel-img-3"
+      />
+      <img
+        src="assets/images/illustrations/illustration4.svg"
+        alt="Illustration 4"
+        class="absolute inset-0 w-full h-full object-contain opacity-0 carousel-img-4"
+      />
+    </div>
+  </section>
 </main>
