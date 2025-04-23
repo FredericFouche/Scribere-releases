@@ -1,13 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Article, ArticleService, Page } from '../../services/article.service';
 import { finalize } from 'rxjs';
-import { StripHtmlPipe } from '../../pipe/striphtml';
+import { StripHtmlPipe } from '../../pipes/striphtml';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  imports: [StripHtmlPipe],
+  styleUrls: ['./home.component.css'],
+  standalone: true,
+  imports: [
+    StripHtmlPipe,
+    CommonModule,
+    RouterModule
+  ],
+  providers: [
+    ArticleService
+  ]
 })
 export class HomeComponent implements OnInit {
   articles: Article[] = [];
