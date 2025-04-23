@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Article, ArticleService, Page } from '../../services/article.service';
 import { finalize } from 'rxjs';
+import { StripHtmlPipe } from '../../pipe/striphtml';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  imports: [StripHtmlPipe],
 })
 export class HomeComponent implements OnInit {
   articles: Article[] = [];
