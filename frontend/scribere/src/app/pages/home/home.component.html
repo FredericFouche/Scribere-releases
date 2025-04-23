@@ -2,34 +2,47 @@
   <h1 class="text-3xl font-bold mb-8">Articles</h1>
 
   <div *ngIf="articles.length === 0 && !isLoading" class="text-center py-10">
-    <p class="text-gray-500">Aucun article disponible pour le moment.</p>
+    <p class="text-neutral-500">Aucun article disponible pour le moment.</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <div
       *ngFor="let article of articles"
-      class="bg-white rounded-lg shadow-md overflow-hidden"
+      class="bg-neutral-100 rounded-lg shadow-md overflow-hidden"
     >
-      <img
-        *ngIf="article.coverImgUrl"
-        [src]="article.coverImgUrl"
-        alt="{{ article.title }}"
-        class="w-full h-48 object-cover"
-      />
+      <div class="aspect-video overflow-hidden rounded-t-3xl cover-wrapper">
+        <img
+          *ngIf="article.coverImgUrl"
+          [src]="article.coverImgUrl"
+          alt="{{ article.title }}"
+          class="h-full w-full object-cover"
+        />
+      </div>
+
       <div class="p-6">
-        <h2 class="text-xl font-semibold mb-2">{{ article.title }}</h2>
-        <div class="flex items-center text-sm text-gray-500 mb-4">
+        <h2 class="mb-2">{{ article.title }}</h2>
+        <div class="flex items-center mb-2 reading-time">
           <span *ngIf="article.readTime" class="mr-4"
             >{{ article.readTime }} min de lecture</span
           >
           <span>{{ article.createdAt | date : "dd/MM/yyyy" }}</span>
         </div>
-        <p class="text-gray-600 line-clamp-3 mb-4">
+        <div class="flex items-center mb-4 gap-2">
+          <span class="author-avatar">
+            <img
+              src="https://placehold.co/40"
+              alt="Author"
+              class="rounded-full"
+            />
+          </span>
+          <span class="author-name">Anthony Mouse</span>
+        </div>
+        <p class="article-content">
           {{ article.content | stripHtml }}
         </p>
         <a
           [routerLink]="['/articles', article.slug]"
-          class="text-blue-600 hover:text-blue-800 font-medium"
+          class="w-full flex justify-end"
         >
           Lire la suite →
         </a>
@@ -40,17 +53,12 @@
   <!-- Loader spinner (sans Material) -->
   <div *ngIf="isLoading" class="flex justify-center py-8">
     <div
-      class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"
+      class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"
     ></div>
   </div>
 
   <!-- Bouton "Charger plus" -->
   <div *ngIf="hasMorePages && !isLoading" class="flex justify-center mt-8">
-    <button
-      (click)="loadMore()"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-200"
-    >
-      Charger plus d'articles
-    </button>
+    <button (click)="loadMore()">Charger plus d'articles</button>
   </div>
 </div>
