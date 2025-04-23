@@ -1,0 +1,22 @@
+.catch-phrase {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  color: var(--color-neutral-900);
+  text-wrap: balance;
+  letter-spacing: -0.03em;
+}
+
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.sub-p {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  color: var(--color-neutral-900);
+  text-wrap: balance;
+  letter-spacing: -0.03em;
+}
