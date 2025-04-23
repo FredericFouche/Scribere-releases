@@ -1,5 +1,9 @@
-<main>
-  <div class="landing-page pb-0 md:pb-40 xl:pb-0">
+<section
+  class="relative h-[100vh] grid grid-cols-1 lg:grid-cols-12 gap-4 items-center pb-40 xl:pb-60"
+>
+  <div
+    class="landing-page flex-grow flex flex-col justify-center col-span-1 lg:col-span-8"
+  >
     <p
       class="catch-phrase padding-vertical text-7xl xs:text-8xl md:text-9xl mb-8"
     >
@@ -15,10 +19,8 @@
   </div>
 
   <!-- Illustration carroussel absolute -->
-  <section
-    class="aspect-[3/4] lg:w-[20%] xl:w-[30%] absolute right-12 xl:right-20 lg:top-1/4 xl:top-1/6 hidden lg:block"
-  >
-    <div class="relative w-full h-full overflow-hidden">
+  <div class="hidden lg:block lg:col-span-4 h-full">
+    <div class="aspect-[3/4] w-full h-auto relative overflow-hidden">
       <img
         src="assets/images/illustrations/illustration1.svg"
         alt="Illustration 1"
@@ -40,5 +42,5 @@
         class="absolute inset-0 w-full h-full object-contain opacity-0 carousel-img-4"
       />
     </div>
-  </section>
-</main>
+  </div>
+</section>

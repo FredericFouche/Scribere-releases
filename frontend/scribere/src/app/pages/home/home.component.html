@@ -10,19 +10,32 @@
       *ngFor="let article of articles"
       class="bg-neutral-100 rounded-lg shadow-md overflow-hidden"
     >
-      <img
-        *ngIf="article.coverImgUrl"
-        [src]="article.coverImgUrl"
-        alt="{{ article.title }}"
-        class="w-full h-48 object-cover"
-      />
+      <div class="aspect-video overflow-hidden rounded-t-3xl cover-wrapper">
+        <img
+          *ngIf="article.coverImgUrl"
+          [src]="article.coverImgUrl"
+          alt="{{ article.title }}"
+          class="h-full w-full object-cover"
+        />
+      </div>
+
       <div class="p-6">
-        <h2 class="text-xl font-semibold mb-2">{{ article.title }}</h2>
-        <div class="flex items-center mb-4 reading-time">
+        <h2 class="mb-2">{{ article.title }}</h2>
+        <div class="flex items-center mb-2 reading-time">
           <span *ngIf="article.readTime" class="mr-4"
             >{{ article.readTime }} min de lecture</span
           >
           <span>{{ article.createdAt | date : "dd/MM/yyyy" }}</span>
+        </div>
+        <div class="flex items-center mb-4 gap-2">
+          <span class="author-avatar">
+            <img
+              src="https://placehold.co/40"
+              alt="Author"
+              class="rounded-full"
+            />
+          </span>
+          <span class="author-name">Anthony Mouse</span>
         </div>
         <p class="article-content">
           {{ article.content | stripHtml }}
