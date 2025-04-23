@@ -1,33 +1,25 @@
 <nav
-  class="flex flex-row justify-between items-center py-4 padding-vertical mx-auto border-b border-neutral-600 absolute w-full"
+  class="flex flex-row justify-between items-center py-4 padding-vertical mx-auto border-b border-neutral-600 absolute w-full z-10 bg-neutral-100"
 >
   <div class="flex items-center">
     <a
       routerLink="/"
-      class="flex items-center cursor-pointer hover:text-primary-800 transition-colors duration-150 ease-in-out group"
+      class="flex items-center transition-colors group hover:no-underline"
     >
       <h1
-        class="group-hover:text-primary-800 transition-colors duration-150 ease-in-out"
+        class="group-hover:text-primary-900 transition-colors duration-150 ease-in-out"
       >
         Scribere<span
-          class="blinking-underscore group-hover:text-primary-800 transition-colors duration-150 ease-in-out"
+          class="blinking-underscore group-hover:text-primary-900 transition-colors duration-150 ease-in-out"
           >_</span
         >
       </h1>
     </a>
   </div>
   <div class="flex items-center space-x-4">
-    <a
-      routerLink="/signin"
-      class="text-primary-800 hover:text-primary-900 hover:underline transition-colors duration-150 ease-in-out cursor-pointer hidden xs:block"
-      >Sign In</a
-    >
-    <a
-      routerLink="/about"
-      class="text-primary-800 hover:text-primary-900 hover:underline transition-colors duration-150 ease-in-out cursor-pointer hidden md:block"
-      >About</a
-    >
-    <a routerLink="/" class="btn-ghost">Get Started</a>
+    <a routerLink="/signin" class="hidden xs:block">Sign In</a>
+    <a routerLink="/about" class="hidden md:block">About</a>
+    <a routerLink="/" class="btn-ghost hover:no-underline">Get Started</a>
   </div>
 </nav>
 
