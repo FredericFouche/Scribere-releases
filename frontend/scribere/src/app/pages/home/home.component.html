@@ -1,65 +1,69 @@
-<div class="mx-auto padding-vertical py-8">
+<div class="mx-auto">
   <app-hero />
-  <h1 class="mb-4">Articles</h1>
+  <section class="mx-auto padding-vertical py-8">
+    <div *ngIf="articles.length === 0 && !isLoading" class="text-center py-10">
+      <p class="text-neutral-500">
+        No articles found. Please check back later or try again.
+      </p>
+    </div>
 
-  <div *ngIf="articles.length === 0 && !isLoading" class="text-center py-10">
-    <p class="text-neutral-500">Aucun article disponible pour le moment.</p>
-  </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        *ngFor="let article of articles"
+        class="bg-neutral-100 rounded-3xl shadow-md overflow-hidden"
+      >
+        <div class="aspect-video overflow-hidden rounded-t-3xl cover-wrapper">
+          <img
+            *ngIf="article.coverImgUrl"
+            [src]="article.coverImgUrl"
+            alt="{{ article.title }}"
+            class="h-full w-full object-cover"
+          />
+        </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div
-      *ngFor="let article of articles"
-      class="bg-neutral-100 rounded-lg shadow-md overflow-hidden"
-    >
-      <div class="aspect-video overflow-hidden rounded-t-3xl cover-wrapper">
-        <img
-          *ngIf="article.coverImgUrl"
-          [src]="article.coverImgUrl"
-          alt="{{ article.title }}"
-          class="h-full w-full object-cover"
-        />
-      </div>
-
-      <div class="p-4 relative">
-        <h2 class="mb-2">{{ article.title }}</h2>
-        <div class="flex items-center mb-2 reading-time">
-          <span *ngIf="article.readTime" class="mr-4"
-            >{{ article.readTime }} min de lecture</span
+        <div class="p-4 relative">
+          <h2 class="mb-2">{{ article.title }}</h2>
+          <div class="flex items-center mb-2 reading-time">
+            <span *ngIf="article.readTime" class="mr-4"
+              >{{ article.readTime }} min read</span
+            >
+            <span>{{ article.createdAt | date : "MM/dd/yyyy" }}</span>
+          </div>
+          <div class="flex items-center mb-4 gap-2">
+            <span class="author-avatar">
+              <img
+                src="https://placehold.co/40"
+                alt="Author"
+                class="rounded-full"
+              />
+            </span>
+            <span class="author-name">Anthony Mouse</span>
+          </div>
+          <p class="article-content">
+            {{ article.content | stripHtml }}
+          </p>
+          <a
+            [routerLink]="['/articles', article.slug]"
+            class="w-full flex justify-end p-2 no-underline"
           >
-          <span>{{ article.createdAt | date : "dd/MM/yyyy" }}</span>
+            <span class="btn-ghost">Read more →</span>
+          </a>
         </div>
-        <div class="flex items-center mb-4 gap-2">
-          <span class="author-avatar">
-            <img
-              src="https://placehold.co/40"
-              alt="Author"
-              class="rounded-full"
-            />
-          </span>
-          <span class="author-name">Anthony Mouse</span>
-        </div>
-        <p class="article-content">
-          {{ article.content | stripHtml }}
-        </p>
-        <a
-          [routerLink]="['/articles', article.slug]"
-          class="w-full flex justify-end p-2"
-        >
-          Lire la suite →
-        </a>
       </div>
     </div>
-  </div>
 
-  <!-- Loader spinner (sans Material) -->
-  <div *ngIf="isLoading" class="flex justify-center py-8">
-    <div
-      class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"
-    ></div>
-  </div>
+    <!-- Loader spinner (sans Material) -->
+    <div *ngIf="isLoading" class="flex justify-center py-8">
+      <div
+        class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"
+      ></div>
+    </div>
 
-  <!-- Bouton "Charger plus" -->
-  <div *ngIf="hasMorePages && !isLoading" class="flex justify-center mt-8">
-    <button (click)="loadMore()">Charger plus d'articles</button>
-  </div>
+    <!-- Bouton "Charger plus" -->
+    <div *ngIf="hasMorePages && !isLoading" class="flex justify-center mt-8">
+      <button (click)="loadMore()">
+        <span class="">Load more</span>
+      </button>
+    </div>
+  </section>
 </div>

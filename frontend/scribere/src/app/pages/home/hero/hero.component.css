@@ -1,0 +1,11 @@
+.img-bg {
+  background-image: url("https://picsum.photos/seed/1/1920/1080");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero {
+  padding-left: 0% !important;
+  padding-right: 0% !important;
+}
