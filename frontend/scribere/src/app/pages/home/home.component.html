@@ -1,5 +1,6 @@
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-8">Articles</h1>
+<div class="mx-auto padding-vertical py-8">
+  <app-hero />
+  <h1 class="mb-4">Articles</h1>
 
   <div *ngIf="articles.length === 0 && !isLoading" class="text-center py-10">
     <p class="text-neutral-500">Aucun article disponible pour le moment.</p>
@@ -19,7 +20,7 @@
         />
       </div>
 
-      <div class="p-6">
+      <div class="p-4 relative">
         <h2 class="mb-2">{{ article.title }}</h2>
         <div class="flex items-center mb-2 reading-time">
           <span *ngIf="article.readTime" class="mr-4"
@@ -42,7 +43,7 @@
         </p>
         <a
           [routerLink]="['/articles', article.slug]"
-          class="w-full flex justify-end"
+          class="w-full flex justify-end p-2"
         >
           Lire la suite →
         </a>

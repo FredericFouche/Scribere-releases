@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Article, ArticleService, Page } from '../../services/article.service';
 import { finalize } from 'rxjs';
-import { StripHtmlPipe } from '../../pipes/striphtml';
+import { StripHtmlPipe } from '../../pipe/striphtml';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HeroComponent } from './hero/hero.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     StripHtmlPipe,
     CommonModule,
-    RouterModule
+    RouterModule,
+    HeroComponent
   ],
   providers: [
     ArticleService

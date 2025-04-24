@@ -185,18 +185,6 @@
   src: url("./assets/fonts/jetbrains-mono-v20-latin-800.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-body[data-is-home="true"] {
-  overflow: hidden;
-}
-
-body[data-is-home="true"] app-footer {
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10;
-}
-
 @theme {
   --breakpoint-xs: 30rem;
   --breakpoint-sm: 40rem;
@@ -397,4 +385,16 @@ body[data-is-home="true"] app-footer {
 .margin-vertical {
   margin-left: calc(3% + 1rem);
   margin-right: calc(3% + 1rem);
+}
+
+.layout-container[data-is-home="true"] {
+  overflow: hidden !important;
+}
+
+.layout-container[data-is-home="true"] app-footer {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 50 !important;
 }
