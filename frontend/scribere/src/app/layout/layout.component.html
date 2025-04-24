@@ -1,7 +1,7 @@
-<body class="min-h-screen flex flex-col" [attr.data-is-home]="isHomePage">
+<div class="layout-container flex flex-col" [attr.data-is-home]="isHomePage">
   <app-navbar />
   <main class="flex flex-col justify-center flex-grow">
     <router-outlet></router-outlet>
   </main>
   <app-footer />
-</body>
+</div>

@@ -4,29 +4,36 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-layout',
   imports: [
     NavbarComponent,
     RouterOutlet,
-    FooterComponent
+    FooterComponent,
+    CommonModule
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
-export class LayoutComponent {
-  currentRoute: string = '';
+export class LayoutComponent implements OnInit {
+  isHomePage = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.checkIfHomePage();
+
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.currentRoute = event.url;
+    ).subscribe(() => {
+      this.checkIfHomePage();
     });
   }
 
-  get isHomePage(): boolean {
-    return this.currentRoute === '/' || this.currentRoute === '';
+  private checkIfHomePage() {
+    this.isHomePage = this.router.url === '/' || this.router.url === '';
   }
 }
