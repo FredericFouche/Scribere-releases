@@ -9,3 +9,20 @@
   padding-left: 0% !important;
   padding-right: 0% !important;
 }
+
+.hero-content {
+  line-height: 1.625;
+}
+
+.hero {
+  position: relative;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0 0 0 / 0.5);
+  transition: background 0.3s;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}

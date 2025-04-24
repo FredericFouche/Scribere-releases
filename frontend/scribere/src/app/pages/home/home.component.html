@@ -1,53 +1,96 @@
 <div class="mx-auto">
   <app-hero />
-  <section class="mx-auto padding-vertical py-8">
+  <section class="mx-auto padding-vertical py-12">
+    <h1
+      class="text-3xl font-bold mb-10 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/3 after:bg-primary-600 after:rounded-full"
+    >
+      Latest Articles
+    </h1>
+
     <div *ngIf="articles.length === 0 && !isLoading" class="text-center py-10">
       <p class="text-neutral-500">
         No articles found. Please check back later or try again.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="space-y-6">
       <div
         *ngFor="let article of articles"
-        class="bg-neutral-100 rounded-3xl shadow-md overflow-hidden"
+        class="flex flex-col md:flex-row gap-4 border-b border-neutral-300 pb-8"
       >
-        <div class="aspect-video overflow-hidden rounded-t-3xl cover-wrapper">
+        <div
+          *ngIf="article.coverImgUrl"
+          class="w-full md:w-2/5 aspect-[3/2] overflow-hidden relative"
+        >
           <img
-            *ngIf="article.coverImgUrl"
             [src]="article.coverImgUrl"
             alt="{{ article.title }}"
             class="h-full w-full object-cover"
           />
         </div>
 
-        <div class="p-4 relative">
-          <h2 class="mb-2">{{ article.title }}</h2>
-          <div class="flex items-center mb-2 reading-time">
-            <span *ngIf="article.readTime" class="mr-4"
+        <div class="flex flex-col md:w-3/5">
+          <div class="mb-2">
+            <span
+              class="inline-block px-3 py-1 text-xs font-medium bg-primary-100 text-neutral-800 rounded-full"
+              >Article</span
+            >
+          </div>
+
+          <h2 class="mb-3 text-primary-900">
+            {{ article.title }}
+          </h2>
+
+          <div
+            class="flex items-center text-sm text-neutral-500 dark:text-neutral-400 mb-4 space-x-3"
+          >
+            <span class="flex items-center gap-2">
+              <img
+                src="https://placehold.co/24"
+                alt="Author"
+                class="rounded-full h-6 w-6 ring-2 ring-primary-700"
+              />
+              <span>Anthony Mouse</span>
+            </span>
+            <span
+              class="inline-block h-1 w-1 rounded-full bg-neutral-300"
+            ></span>
+            <span>{{ article.createdAt | date : "dd MMM yyyy" }}</span>
+            <span
+              *ngIf="article.readTime"
+              class="inline-block h-1 w-1 rounded-full bg-neutral-300"
+            ></span>
+            <span *ngIf="article.readTime"
               >{{ article.readTime }} min read</span
             >
-            <span>{{ article.createdAt | date : "MM/dd/yyyy" }}</span>
           </div>
-          <div class="flex items-center mb-4 gap-2">
-            <span class="author-avatar">
-              <img
-                src="https://placehold.co/40"
-                alt="Author"
-                class="rounded-full"
-              />
-            </span>
-            <span class="author-name">Anthony Mouse</span>
-          </div>
-          <p class="article-content">
+
+          <p class="text-neutral-600 dark:text-neutral-300 mb-4 line-clamp-3">
             {{ article.content | stripHtml }}
           </p>
-          <a
-            [routerLink]="['/articles', article.slug]"
-            class="w-full flex justify-end p-2 no-underline"
-          >
-            <span class="btn-ghost">Read more →</span>
-          </a>
+
+          <div class="flex items-end justify-end">
+            <a
+              [routerLink]="['/articles', article.slug]"
+              class="w-fit flex items-center text-md line-clamp-1 mt-2 btn-ghost no-underline"
+            >
+              <span class="pb-0.5">Read More</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 ml-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -55,14 +98,28 @@
     <!-- Loader spinner (sans Material) -->
     <div *ngIf="isLoading" class="flex justify-center py-8">
       <div
-        class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"
+        class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-700"
       ></div>
     </div>
 
     <!-- Bouton "Charger plus" -->
-    <div *ngIf="hasMorePages && !isLoading" class="flex justify-center mt-8">
-      <button (click)="loadMore()">
-        <span class="">Load more</span>
+    <div *ngIf="hasMorePages && !isLoading" class="flex justify-center mt-12">
+      <button (click)="loadMore()" class="px-8 py-3 flex items-center gap-2">
+        <span>Load more articles</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
+        </svg>
       </button>
     </div>
   </section>
