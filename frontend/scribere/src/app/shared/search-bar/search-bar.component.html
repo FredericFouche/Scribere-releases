@@ -1,0 +1,11 @@
+<section class="search-bar">
+  <div>
+    <input
+      type="text"
+      placeholder="Search..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearch()"
+    />
+    <button (click)="onSearch()">search</button>
+  </div>
+</section>
