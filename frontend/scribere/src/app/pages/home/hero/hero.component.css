@@ -3,20 +3,23 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  height: 130%;
+  top: -15%;
+  transform: translateY(0);
+  transition: transform 0.1s ease-out;
+  will-change: transform;
 }
 
 .hero {
   padding-left: 0% !important;
   padding-right: 0% !important;
+  position: relative;
 }
 
 .hero-content {
   line-height: 1.625;
 }
 
-.hero {
-  position: relative;
-}
 .hero::before {
   content: "";
   position: absolute;
@@ -25,4 +28,29 @@
   transition: background 0.3s;
   pointer-events: none;
   mix-blend-mode: multiply;
+}
+
+/* Solution de repli pour les navigateurs qui ne supportent pas animation-timeline */
+@media screen {
+  .parallax {
+    transform: translateY(calc(var(--parallax-offset, 0) * -1%));
+  }
+}
+
+/* Support modern pour les navigateurs qui supportent animation-timeline */
+@supports (animation-timeline: scroll()) {
+  @keyframes yParallax {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-20%);
+    }
+  }
+
+  .parallax {
+    animation: yParallax linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 100vh;
+  }
 }
