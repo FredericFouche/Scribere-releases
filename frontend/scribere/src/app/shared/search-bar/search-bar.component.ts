@@ -41,6 +41,16 @@ export class SearchBarComponent {
       });
   }
 
+  onClear() {
+    this.searchTerm = '';
+    this.results = [];
+    this.error = null;
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    }
+  }
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
