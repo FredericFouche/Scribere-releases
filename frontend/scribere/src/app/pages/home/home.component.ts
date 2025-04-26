@@ -15,7 +15,7 @@ import { HeroComponent } from './hero/hero.component';
     StripHtmlPipe,
     CommonModule,
     RouterModule,
-    HeroComponent
+    HeroComponent,
   ],
   providers: [
     ArticleService
