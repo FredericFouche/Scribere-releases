@@ -1,33 +1,58 @@
 <section class="search-bar">
-  <div class="flex justify-center items-center gap-2">
-    <div class="relative flex items-center text-sm">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-search-icon lucide-search absolute left-2"
+  <div class="flex flex-col justify-center items-center gap-2 w-full">
+    <div class="relative w-full" #searchContainer>
+      <div class="relative flex items-center text-sm w-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-search-icon lucide-search absolute left-2"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+        <input
+          class="pl-6 text-md w-full"
+          type="text"
+          placeholder="Search articles..."
+          aria-label="Search articles"
+          aria-describedby="search"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearch()"
+          (keydown.enter)="onSearch()"
+          (keydown.esc)="onClear()"
+        />
+        <div class="kbd absolute right-2 top-1">⏎</div>
+      </div>
+
+      <div
+        class="search-results absolute top-full left-0 w-full mt-1"
+        *ngIf="searchTerm.trim().length > 0"
       >
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.3-4.3" />
-      </svg>
-      <input
-        class="pl-6 text-md"
-        type="text"
-        placeholder="Search articles..."
-        aria-label="Search articles"
-        aria-describedby="search"
-        [(ngModel)]="searchTerm"
-        (ngModelChange)="onSearch()"
-        (keydown.enter)="onSearch()"
-        (keydown.esc)="onClear()"
-      />
-      <div class="kbd absolute right-2 top-1">⏎</div>
+        <ng-container *ngIf="results.length > 0; else noResults">
+          <ul class="w-full bg-neutral-50 shadow-md rounded-md z-10">
+            <li
+              *ngFor="let result of results"
+              class="search-result-item p-2 hover:bg-neutral-100"
+            >
+              <a [routerLink]="['/articles', result.id]" class="block">{{
+                result.title
+              }}</a>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-template #noResults>
+          <div class="no-results w-full bg-white shadow-md rounded-md p-2 z-10">
+            No results found.
+          </div>
+        </ng-template>
+      </div>
     </div>
   </div>
 </section>
