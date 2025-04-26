@@ -24,8 +24,8 @@
           aria-label="Search articles"
           aria-describedby="search"
           [(ngModel)]="searchTerm"
-          (ngModelChange)="onSearch()"
-          (keydown.enter)="onSearch()"
+          (ngModelChange)="onSearchInput()"
+          (keydown.enter)="onSearchInput()"
           (keydown.esc)="onClear()"
         />
         <div class="kbd absolute right-2 top-1">⏎</div>
@@ -41,9 +41,11 @@
               *ngFor="let result of results"
               class="search-result-item p-2 hover:bg-neutral-100"
             >
-              <a [routerLink]="['/articles', result.id]" class="block">{{
-                result.title
-              }}</a>
+              <a
+                [routerLink]="['/articles', result.id]"
+                class="block"
+                [innerHTML]="highlightSearchTerm(result.title)"
+              ></a>
             </li>
           </ul>
         </ng-container>

@@ -5,6 +5,9 @@ import { SearchService, Article } from '../../services/search.service';
 import { Subscription, catchError } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-search-bar',
@@ -16,16 +19,34 @@ import { ElementRef, HostListener, ViewChild } from '@angular/core';
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
-export class SearchBarComponent {
-  searchTerm: string = '';
+export class SearchBarComponent implements OnInit, OnDestroy {
   results: Article[] = [];
   private subscription: Subscription | null = null;
   error: string | null = null;
+  private searchTerms = new Subject<string>();
+  searchTerm: string = '';
 
   constructor(private searchService: SearchService) {
   }
 
-  onSearch() {
+  ngOnInit() {
+    this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+    ).subscribe(term => {
+      if (!term) {
+        this.results = [];
+        return;
+      }
+      this.performSearch(term);
+    });
+  }
+
+  onSearchInput() {
+    this.searchTerms.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -77,5 +98,14 @@ export class SearchBarComponent {
     ) {
       this.onClear();
     }
+  }
+
+  highlightSearchTerm(text: string): string {
+    if (!this.searchTerm.trim() || !text) {
+      return text;
+    }
+    const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapeRegExp(this.searchTerm.trim())})`, 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
   }
 }
