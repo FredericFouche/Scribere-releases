@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class ArticleService {
@@ -26,6 +28,13 @@ public class ArticleService {
         this.articleRepository = articleRepository;
         this.articleMapper = articleMapper;
         this.eventPublisher = eventPublisher;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ArticleDto> findByTagSlug(String tagSlug, Pageable pageable) {
+        logger.info("Recherche d'articles avec le tag: {}", tagSlug);
+        return articleRepository.findByTagSlugOrderByCreatedAtDesc(tagSlug, pageable)
+                .map(articleMapper::toDto);
     }
 
     @Transactional

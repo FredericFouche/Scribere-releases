@@ -2,10 +2,19 @@ package com.scribere.backend.mapper;
 
 import com.scribere.backend.dto.ArticleDto;
 import com.scribere.backend.model.Article;
+
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class ArticleMapper {
+
+    private final TagMapper tagMapper;
+
+    public ArticleMapper(TagMapper tagMapper) {
+        this.tagMapper = tagMapper;
+    }
 
     public ArticleDto toDto(Article article) {
         ArticleDto dto = new ArticleDto();
@@ -17,6 +26,14 @@ public class ArticleMapper {
         dto.setContent(article.getContent());
         dto.setCreatedAt(article.getCreatedAt());
         dto.setUpdatedAt(article.getUpdatedAt());
+
+        // Conversion des tags
+        if (article.getTags() != null) {
+            dto.setTags(article.getTags().stream()
+                    .map(tagMapper::toDto)
+                    .collect(Collectors.toSet()));
+        }
+
         return dto;
     }
 

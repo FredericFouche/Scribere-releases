@@ -20,9 +20,16 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping("/articles")
-    public Page<ArticleDto> list(Pageable pageable) {
-        return articleRepository.findAllByOrderByCreatedAtDesc(pageable)
-                .map(articleMapper::toDto);
+    public Page<ArticleDto> list(
+            @RequestParam(required = false) String tag,
+            Pageable pageable) {
+
+        if (tag != null && !tag.isEmpty()) {
+            return articleService.findByTagSlug(tag, pageable);
+        } else {
+            return articleRepository.findAllByOrderByCreatedAtDesc(pageable)
+                    .map(articleMapper::toDto);
+        }
     }
 
     @PostMapping("/articles")
