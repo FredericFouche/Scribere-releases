@@ -74,4 +74,10 @@ public class TagService {
         logger.info("Deleting tag by ID: {}", id);
         tagRepository.deleteById(id);
     }
+
+    public List<TagDto> suggestByPrefix(String prefix) {
+        logger.info("Suggesting tags with prefix: {}", prefix);
+        List<Tag> tags = tagRepository.findByNameStartingWithIgnoreCase(prefix);
+        return tags.stream().map(tagMapper::toDto).toList();
+    }
 }
