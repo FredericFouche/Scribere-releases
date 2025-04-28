@@ -5,6 +5,7 @@ import { StripHtmlPipe } from '../../pipe/striphtml';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from './hero/hero.component';
+import { TagComponent } from '../../shared/tag/tag.component';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { HeroComponent } from './hero/hero.component';
     CommonModule,
     RouterModule,
     HeroComponent,
+    TagComponent
   ],
   providers: [
     ArticleService

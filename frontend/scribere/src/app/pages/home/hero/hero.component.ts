@@ -1,10 +1,14 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { TagComponent } from '../../../shared/tag/tag.component';
 
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
-  styleUrls: ['./hero.component.css']
+  styleUrls: ['./hero.component.css'],
+  imports: [
+    TagComponent
+  ],
 })
 export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   private scrollListener: (() => void) | null = null;

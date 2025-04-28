@@ -1,0 +1,16 @@
+<div>
+  <span
+    class="inline-block px-3 py-1 text-xs font-medium text-neutral-900 rounded-full"
+    [ngClass]="{
+      'bg-primary-100': tag.color === 'neutral' || !tag.color,
+      'bg-red-100': tag.color === 'red',
+      'bg-orange-100': tag.color === 'orange',
+      'bg-yellow-100': tag.color === 'yellow',
+      'bg-green-100': tag.color === 'green',
+      'bg-blue-100': tag.color === 'blue',
+      'bg-purple-100': tag.color === 'purple'
+    }"
+  >
+    {{ tag.name }}
+  </span>
+</div>
