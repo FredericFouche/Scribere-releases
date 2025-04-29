@@ -11,6 +11,7 @@ import { OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-search-bar',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
