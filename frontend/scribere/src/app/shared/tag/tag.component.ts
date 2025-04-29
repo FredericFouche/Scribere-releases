@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { UUID } from 'node:crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Tag {
-  id: UUID;
+  id: string;
   name: string;
   slug: string;
   color?: string;
@@ -21,4 +21,10 @@ interface Tag {
 })
 export class TagComponent {
   @Input() tag!: Tag;
+
+  ngOnInit() {
+    if (!this.tag.id) {
+      this.tag.id = uuidv4();
+    }
+  }
 }
