@@ -9,7 +9,7 @@
       (click)="editor.chain().focus().toggleBold().run()"
       [class.bg-primary-100]="editor.isActive('bold')"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Gras"
+      aria-label="Bold"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -27,13 +27,14 @@
           d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"
         />
       </svg>
-      <span class="tooltip">Gras</span>
+      <span class="tooltip">Bold</span>
     </button>
+
     <button
       (click)="editor.chain().focus().toggleItalic().run()"
       [class.bg-primary-100]="editor.isActive('italic')"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Italique"
+      aria-label="Italic"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -51,14 +52,14 @@
         <line x1="14" x2="5" y1="20" y2="20" />
         <line x1="15" x2="9" y1="4" y2="20" />
       </svg>
-      <span class="tooltip">Italique</span>
+      <span class="tooltip">Italic</span>
     </button>
 
     <button
       (click)="editor.chain().focus().toggleUnderline().run()"
       [class.bg-primary-100]="editor.isActive('underline')"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Souligné"
+      aria-label="Underline"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -75,14 +76,14 @@
         <path d="M6 4v6a6 6 0 0 0 12 0V4" />
         <line x1="4" x2="20" y1="20" y2="20" />
       </svg>
-      <span class="tooltip">Souligné</span>
+      <span class="tooltip">Underline</span>
     </button>
 
     <button
       (click)="addLink()"
       [class.bg-primary-100]="editor.isActive('link')"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Lien"
+      aria-label="Link"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +102,7 @@
           d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
         />
       </svg>
-      <span class="tooltip">Lien</span>
+      <span class="tooltip">Link</span>
     </button>
 
     <div class="h-8 mx-1 w-px bg-neutral-300"></div>
@@ -136,7 +137,7 @@
       (click)="editor.chain().focus().setTextAlign('left').run()"
       [class.bg-primary-100]="editor.isActive({ textAlign: 'left' })"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Aligner à gauche"
+      aria-label="Align left"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -154,14 +155,14 @@
         <line x1="15" x2="3" y1="12" y2="12" />
         <line x1="17" x2="3" y1="18" y2="18" />
       </svg>
-      <span class="tooltip">Aligner à gauche</span>
+      <span class="tooltip">Align left</span>
     </button>
 
     <button
       (click)="editor.chain().focus().setTextAlign('center').run()"
       [class.bg-primary-100]="editor.isActive({ textAlign: 'center' })"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Centrer"
+      aria-label="Center"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -179,14 +180,14 @@
         <line x1="17" x2="7" y1="12" y2="12" />
         <line x1="19" x2="5" y1="18" y2="18" />
       </svg>
-      <span class="tooltip">Centrer</span>
+      <span class="tooltip">Center</span>
     </button>
 
     <button
       (click)="editor.chain().focus().setTextAlign('right').run()"
       [class.bg-primary-100]="editor.isActive({ textAlign: 'right' })"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Aligner à droite"
+      aria-label="Align right"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -204,14 +205,14 @@
         <line x1="21" x2="9" y1="12" y2="12" />
         <line x1="21" x2="7" y1="18" y2="18" />
       </svg>
-      <span class="tooltip">Aligner à droite</span>
+      <span class="tooltip">Align right</span>
     </button>
 
     <button
       (click)="editor.chain().focus().setTextAlign('justify').run()"
       [class.bg-primary-100]="editor.isActive({ textAlign: 'justify' })"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Justifier"
+      aria-label="Justify"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +230,7 @@
         <line x1="3" x2="21" y1="12" y2="12" />
         <line x1="3" x2="21" y1="18" y2="18" />
       </svg>
-      <span class="tooltip">Justifier</span>
+      <span class="tooltip">Justify</span>
     </button>
 
     <div class="h-8 mx-1 w-px bg-neutral-300"></div>
@@ -238,7 +239,7 @@
       (click)="editor.chain().focus().toggleHeading({ level: 1 }).run()"
       [class.bg-primary-100]="editor.isActive('heading', { level: 1 })"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Titre 1"
+      aria-label="Heading 1"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -257,14 +258,14 @@
         <path d="M12 18V6" />
         <path d="m17 12 3-2v8" />
       </svg>
-      <span class="tooltip">Titre 1</span>
+      <span class="tooltip">Heading 1</span>
     </button>
 
     <button
       (click)="editor.chain().focus().toggleHeading({ level: 2 }).run()"
       [class.bg-primary-100]="editor.isActive('heading', { level: 2 })"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Titre 2"
+      aria-label="Heading 2"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -283,7 +284,7 @@
         <path d="M12 18V6" />
         <path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1" />
       </svg>
-      <span class="tooltip">Titre 2</span>
+      <span class="tooltip">Heading 2</span>
     </button>
 
     <div class="h-8 mx-1 w-px bg-neutral-300"></div>
@@ -292,7 +293,7 @@
       (click)="editor.chain().focus().toggleBulletList().run()"
       [class.bg-primary-100]="editor.isActive('bulletList')"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Liste à puces"
+      aria-label="Bullet List"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -313,14 +314,14 @@
         <line x1="3" y1="12" x2="3.01" y2="12" />
         <line x1="3" y1="18" x2="3.01" y2="18" />
       </svg>
-      <span class="tooltip">Liste à puces</span>
+      <span class="tooltip">Bullet List</span>
     </button>
 
     <button
       (click)="editor.chain().focus().toggleOrderedList().run()"
       [class.bg-primary-100]="editor.isActive('orderedList')"
       class="p-2 rounded-md transition-colors duration-200 tooltip-wrapper"
-      aria-label="Liste numérotée"
+      aria-label="Ordered List"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +342,7 @@
         <path d="M4 10h2" />
         <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1" />
       </svg>
-      <span class="tooltip">Liste numérotée</span>
+      <span class="tooltip">Ordered List</span>
     </button>
   </div>
 
@@ -353,7 +354,7 @@
     <div
       class="absolute bottom-0 right-0 px-2 py-1 text-xs text-gray-500 bg-gray-50 border-t border-l border-gray-200 rounded-b"
     >
-      {{ getCharacterCount() }} caractères
+      {{ getCharacterCount() }} characters
     </div>
 
     <div class="h-[500px] overflow-y-auto">

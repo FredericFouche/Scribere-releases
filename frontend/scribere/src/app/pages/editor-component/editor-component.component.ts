@@ -30,27 +30,26 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.editor = new Editor({
-        extensions: [
-          StarterKit,
-          Underline,
-          Link.configure({
-            openOnClick: false,
-          }),
-          Image,
-          TextAlign.configure({
-            types: ['heading', 'paragraph'],
-          }),
-          Placeholder.configure({
-            placeholder: 'Commencez à écrire votre histoire...',
-          }),
-        ],
-        content: '<p>Hello, write your journey here!</p>',
-        autofocus: true,
-        editable: true,
-      });
+        this.editor = new Editor({
+            extensions: [
+                StarterKit,
+                Underline,
+                Link.configure({ openOnClick: false }),
+                Image,
+                TextAlign.configure({ types: ['heading', 'paragraph'] }),
+                Placeholder.configure({ placeholder: 'Commencez à écrire votre histoire...' }),
+            ],
+            content: '<p>Hello, write your journey here!</p>',
+            autofocus: true,
+            editable: true,
+        });
+
+        this.loadContentFromLocalStorage();
+        this.editor.on('update', () => {
+            this.autoSaveInLocalStorage();
+        });
     }
-  }
+}
 
   ngOnDestroy() {
     this.editor?.destroy();
@@ -94,4 +93,24 @@ export class EditorComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  autoSaveInLocalStorage() {
+    if (this.editor) {
+      const content = this.editor.getJSON();
+      localStorage.setItem('editorContent', JSON.stringify(content));
+    }
+  }
+
+  loadContentFromLocalStorage() {
+    const content = localStorage.getItem('editorContent');
+    if (content && this.editor) {
+      const parsedContent = JSON.parse(content);
+      this.editor.commands.setContent(parsedContent);
+    }
+  }
+
+  clearLocalStorage() {
+    localStorage.removeItem('editorContent');
+  }
+
 }
