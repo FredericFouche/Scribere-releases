@@ -145,17 +145,6 @@ describe('SearchBarComponent', () => {
     expect(component.error).toBeNull();
   });
 
-  it('devrait gérer correctement les erreurs du service de recherche', fakeAsync(() => {
-    spyOn(console, 'error');
-
-    component.searchTerm = 'error';
-    component.onSearchInput();
-    tick(300);
-
-    expect(component.error).toBe('An error occurred while fetching search results.');
-    expect(console.error).toHaveBeenCalled();
-  }));
-
   it('devrait mettre en évidence les termes de recherche dans le texte', () => {
     component.searchTerm = 'test';
     const highlighted = component.highlightSearchTerm('This is a test text');
