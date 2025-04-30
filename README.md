@@ -1,6 +1,4 @@
 [![Build Status](https://github.com/fred/Scribere/actions/workflows/ci.yml/badge.svg)](https://github.com/fred/Scribere/actions)
-[![Coverage Status](https://codecov.io/gh/fred/Scribere/branch/main/graph/badge.svg)](https://codecov.io/gh/fred/Scribere)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 # Scribere
 

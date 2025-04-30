@@ -3,6 +3,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { HomeComponent } from './pages/home/home.component';
 import { EditorComponent } from './pages/editor-component/editor-component.component';
+import { ArticleComponent } from './pages/article/article.component';
 
 export const routes: Routes = [
   {
@@ -22,5 +23,9 @@ export const routes: Routes = [
   {
     path: 'editor',
     component: EditorComponent
+  },
+  {
+    path: 'articles/:slug',
+    component: ArticleComponent
   },
 ];
