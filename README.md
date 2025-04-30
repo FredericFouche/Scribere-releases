@@ -1,4 +1,5 @@
-[![Build Status](https://github.com/fred/Scribere/actions/workflows/ci.yml/badge.svg)](https://github.com/fred/Scribere/actions)
+[![Build Status](https://github.com/FredericFouche/Scribere/actions/workflows/ci.yml/badge.svg)](https://github.com/FredericFouche/Scribere/actions)
+[![CI & Tests](https://github.com/FredericFouche/Scribere/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/FredericFouche/Scribere/actions/workflows/ci.yml)
 
 # Scribere
 
