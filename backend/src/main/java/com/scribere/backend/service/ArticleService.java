@@ -15,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 
 @Service
 public class ArticleService {
-
-    private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
     private final ArticleRepository articleRepository;
     private final ArticleMapper articleMapper;
     private final ApplicationEventPublisher eventPublisher;
@@ -30,30 +28,43 @@ public class ArticleService {
         this.eventPublisher = eventPublisher;
     }
 
+    /**
+     * Find an article by its slug.
+     *
+     * @param slug The slug of the article to find.
+     * @return The article with the given slug.
+     */
     @Transactional(readOnly = true)
     public Page<ArticleDto> findByTagSlug(String tagSlug, Pageable pageable) {
-        logger.info("Recherche d'articles avec le tag: {}", tagSlug);
         return articleRepository.findByTagSlugOrderByCreatedAtDesc(tagSlug, pageable)
                 .map(articleMapper::toDto);
     }
 
+    /**
+     * Find all articles ordered by creation date (newest first)
+     *
+     * @param pageable Pagination information
+     * @return A page of articles DTOs
+     */
+    @Transactional(readOnly = true)
+    public Page<ArticleDto> findAll(Pageable pageable) {
+        return articleRepository.findAllByOrderByCreatedAtDesc(pageable)
+                .map(articleMapper::toDto);
+    }
+
+    /**
+     * Save an article in db and publish an event after saving for indexing in
+     * Meilisearch.
+     *
+     * @param articleDto The article to save.
+     * @return The saved article.
+     */
     @Transactional
     public ArticleDto save(ArticleDto articleDto) {
-        logger.info("Saving article: {}", articleDto.getTitle());
-
-        // Implémenter la méthode toEntity dans ArticleMapper
         Article article = articleMapper.toEntity(articleDto);
-
-        // Sauvegarder l'article
         article = articleRepository.save(article);
-
-        // Convertir en DTO
         ArticleDto savedArticleDto = articleMapper.toDto(article);
-
-        // Publier l'événement pour l'indexation
-        logger.info("Publishing ArticleSavedEvent for article: {}", savedArticleDto.getTitle());
         eventPublisher.publishEvent(new ArticleSavedEvent(savedArticleDto));
-
         return savedArticleDto;
     }
 }

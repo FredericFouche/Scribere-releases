@@ -15,8 +15,6 @@ import com.meilisearch.sdk.SearchRequest;
 import com.meilisearch.sdk.exceptions.MeilisearchApiException;
 import com.meilisearch.sdk.model.Searchable;
 import com.scribere.backend.dto.ArticleDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -31,21 +29,29 @@ import java.util.stream.Collectors;
 @Service
 public class SearchService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private static final String INDEX_NAME = "articles";
     private final Client meiliClient;
     private final Gson gson;
 
+    /**
+     * Constructor for SearchService.
+     *
+     * @param meiliClient The Meilisearch client used to interact with the
+     *                    Meilisearch server.
+     */
     public SearchService(Client meiliClient) {
         this.meiliClient = meiliClient;
-
-        // Création d'un Gson avec un adaptateur personnalisé pour LocalDateTime
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
     }
 
-    // Adaptateur pour sérialiser/désérialiser LocalDateTime
+    /**
+     * Adapter for LocalDateTime serialization and deserialization.
+     * This adapter is used to convert LocalDateTime objects to and from JSON
+     * format.
+     * example: LocalDateTime.now() -> "2023-10-01T12:00:00"
+     */
     private static class LocalDateTimeAdapter
             implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -64,91 +70,97 @@ public class SearchService {
             try {
                 return LocalDateTime.parse(json.getAsString(), formatter);
             } catch (Exception e) {
-                logger.warn("Erreur lors de la désérialisation de LocalDateTime: {}", e.getMessage());
-                // Retourner la date actuelle en cas d'erreur pour éviter l'échec complet de
-                // désérialisation
                 return LocalDateTime.now();
             }
         }
     }
 
-    private void ensureIndexExists() {
+    /**
+     * Ensures that the Meilisearch index exists. If it does not exist, it creates
+     * the index.
+     */
+    public void ensureIndexExists() {
         try {
-            // Vérifier si l'index existe déjà
             meiliClient.getIndex(INDEX_NAME);
-            logger.info("Index '{}' existe déjà", INDEX_NAME);
         } catch (MeilisearchApiException e) {
             if (e.getMessage().contains("not found")) {
                 try {
-                    // Créer l'index s'il n'existe pas
                     meiliClient.createIndex(INDEX_NAME, "id");
-                    logger.info("Index '{}' créé avec succès", INDEX_NAME);
                 } catch (Exception ex) {
-                    logger.error("Erreur lors de la création de l'index '{}'", INDEX_NAME, ex);
+                    throw new RuntimeException("Failed to create index: " + INDEX_NAME, ex);
                 }
             } else {
-                logger.error("Erreur lors de la vérification de l'index '{}'", INDEX_NAME, e);
+                throw new RuntimeException("Failed to check index: " + INDEX_NAME, e);
             }
         } catch (Exception e) {
-            logger.error("Erreur inattendue lors de la vérification de l'index '{}'", INDEX_NAME, e);
+            throw new RuntimeException("Failed to check index: " + INDEX_NAME, e);
         }
     }
 
+    /**
+     * Converts a list of HashMap objects into a list of ArticleDto objects.
+     *
+     * @param hits The list of HashMap objects representing the search results.
+     * @return A list of ArticleDto objects.
+     */
+    private List<ArticleDto> transformHits(List<HashMap<String, Object>> hits) {
+        return hits.stream()
+                .map(hit -> {
+                    try {
+                        String json = gson.toJson(hit);
+                        ArticleDto article = gson.fromJson(json, ArticleDto.class);
+                        if (article.getCreatedAt() == null) {
+                            article.setCreatedAt(LocalDateTime.now());
+                        }
+                        if (article.getUpdatedAt() == null) {
+                            article.setUpdatedAt(LocalDateTime.now());
+                        }
+                        return article;
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
+                .filter(article -> article != null)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Fetches hits from the Meilisearch index.
+     *
+     * @param query The search query.
+     * @param limit The maximum number of results to return.
+     * @return A list of HashMap objects representing the search results.
+     * @throws Exception If an error occurs during the search.
+     */
+    private List<HashMap<String, Object>> fetchHits(String query, int limit) throws Exception {
+        Index index = meiliClient.index(INDEX_NAME);
+        SearchRequest searchRequest = new SearchRequest(query)
+                .setLimit(limit);
+        Searchable searchResult = index.search(searchRequest);
+        return (ArrayList<HashMap<String, Object>>) searchResult.getHits();
+    }
+
+    /**
+     * Searches for articles in the Meilisearch index.
+     *
+     * @param query The search query.
+     * @param limit The maximum number of results to return.
+     * @return A list of ArticleDto objects matching the search query.
+     */
     public List<ArticleDto> search(String query, int limit) {
         try {
-            logger.info("Recherche de '{}' avec limite {}", query, limit);
-
-            // S'assurer que l'index existe avant de chercher
             ensureIndexExists();
 
-            Index index = meiliClient.index(INDEX_NAME);
+            List<HashMap<String, Object>> hits = fetchHits(query, limit);
 
-            // Créer la requête de recherche
-            SearchRequest searchRequest = new SearchRequest(query)
-                    .setLimit(limit);
-
-            // Exécuter la recherche
-            Searchable searchResult = index.search(searchRequest);
-
-            // Récupérer les hits - c'est une ArrayList<HashMap> et non un String
-            @SuppressWarnings("unchecked")
-            ArrayList<HashMap<String, Object>> hits = (ArrayList<HashMap<String, Object>>) searchResult.getHits();
-
-            // Si aucun résultat, retourner une liste vide
             if (hits == null || hits.isEmpty()) {
-                logger.info("Aucun résultat trouvé pour '{}'", query);
                 return Collections.emptyList();
             }
 
-            // Convertir les résultats en liste d'ArticleDto
-            List<ArticleDto> articles = hits.stream()
-                    .map(hit -> {
-                        try {
-                            // Convertir le HashMap en JSON puis en ArticleDto
-                            String json = gson.toJson(hit);
-                            ArticleDto article = gson.fromJson(json, ArticleDto.class);
+            List<ArticleDto> articlesDto = transformHits(hits);
 
-                            // Si les dates sont nulles, initialiser avec la date actuelle
-                            if (article.getCreatedAt() == null) {
-                                article.setCreatedAt(LocalDateTime.now());
-                            }
-                            if (article.getUpdatedAt() == null) {
-                                article.setUpdatedAt(LocalDateTime.now());
-                            }
-
-                            return article;
-                        } catch (Exception e) {
-                            logger.error("Erreur lors de la conversion du résultat en ArticleDto: {}", e.getMessage());
-                            return null;
-                        }
-                    })
-                    .filter(article -> article != null)
-                    .collect(Collectors.toList());
-
-            logger.info("Trouvé {} articles correspondant à '{}'", articles.size(), query);
-            return articles;
+            return articlesDto;
         } catch (Exception e) {
-            logger.error("Erreur pendant l'opération de recherche", e);
             return Collections.emptyList();
         }
     }

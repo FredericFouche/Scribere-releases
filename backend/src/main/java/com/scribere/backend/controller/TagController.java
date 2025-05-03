@@ -21,32 +21,67 @@ import java.util.UUID;
 public class TagController {
     private final TagService tagService;
 
+    /**
+     * Retrieves all tags.
+     * 
+     * @return a list of TagDto objects
+     */
     @GetMapping
     public List<TagDto> list() {
         return tagService.findAll();
     }
 
+    /**
+     * Finds tags by name.
+     * 
+     * @param name the tag name to search
+     * @return a list of TagDto objects
+     */
     @GetMapping("/name/{name}")
     public List<TagDto> findByName(@PathVariable String name) {
         return tagService.findByName(name);
     }
 
+    /**
+     * Finds tags by slug.
+     * 
+     * @param slug the slug to search
+     * @return a list of TagDto objects
+     */
     @GetMapping("/slug/{slug}")
     public List<TagDto> findBySlug(@PathVariable String slug) {
         return tagService.findBySlug(slug);
     }
 
+    /**
+     * Finds a specific tag by its UUID.
+     * 
+     * @param id the tag identifier
+     * @return the matching TagDto object
+     */
     @GetMapping("/id/{id}")
     public TagDto findById(@PathVariable UUID id) {
         return tagService.findById(id);
     }
 
+    /**
+     * Suggests tags matching a given prefix.
+     * 
+     * @param query the prefix
+     * @return a list of TagDto objects
+     */
     @GetMapping("/suggest")
     public ResponseEntity<List<TagDto>> suggestTags(@RequestParam("q") String query) {
         List<TagDto> suggestions = tagService.suggestByPrefix(query);
         return ResponseEntity.ok(suggestions);
     }
 
+    /**
+     * Creates a new tag.
+     * 
+     * @param tagDto the DTO with tag info
+     * @return the created TagDto
+     */
     @PostMapping
     public ResponseEntity<TagDto> create(@RequestBody TagDto tagDto) {
         TagDto savedTag = tagService.save(tagDto);
