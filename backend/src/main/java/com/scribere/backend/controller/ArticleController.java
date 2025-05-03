@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class ArticleController {
-
-    private final ArticleRepository articleRepository;
-    private final ArticleMapper articleMapper;
     private final ArticleService articleService;
 
+    /**
+     * Lists articles, optionally filtered by tag.
+     *
+     * @param tag      Optional tag slug to filter articles
+     * @param pageable Pagination information
+     * @return A page of article DTOs
+     */
     @GetMapping("/articles")
     public Page<ArticleDto> list(
             @RequestParam(required = false) String tag,
@@ -27,11 +31,16 @@ public class ArticleController {
         if (tag != null && !tag.isEmpty()) {
             return articleService.findByTagSlug(tag, pageable);
         } else {
-            return articleRepository.findAllByOrderByCreatedAtDesc(pageable)
-                    .map(articleMapper::toDto);
+            return articleService.findAll(pageable);
         }
     }
 
+    /**
+     * Creates a new article.
+     *
+     * @param articleDto The article data transfer object
+     * @return The created article
+     */
     @PostMapping("/articles")
     public ResponseEntity<ArticleDto> create(@RequestBody ArticleDto articleDto) {
         ArticleDto savedArticle = articleService.save(articleDto);
