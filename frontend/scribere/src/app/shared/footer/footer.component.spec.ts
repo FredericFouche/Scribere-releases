@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FooterComponent } from './footer.component';
-import { Component } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
+/**
+ * Test suite for the FooterComponent
+ */
 describe('FooterComponent', () => {
   let component: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
@@ -23,29 +25,30 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('devrait être créé', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
-  it('devrait contenir un lien vers la page About', () => {
+  // Navigation tests
+  it('should contain a link to the About page', () => {
     const aboutLink = fixture.debugElement.query(By.css('a[href="/about"]')).nativeElement;
     expect(aboutLink).toBeTruthy();
     expect(aboutLink.textContent.trim()).toBe('About');
   });
 
-  it('devrait contenir un lien vers la page Privacy', () => {
+  it('should contain a link to the Privacy page', () => {
     const privacyLink = fixture.debugElement.query(By.css('a[href="/privacy"]')).nativeElement;
     expect(privacyLink).toBeTruthy();
     expect(privacyLink.textContent.trim()).toBe('Privacy');
   });
 
-  it('devrait contenir un lien vers la page Terms', () => {
+  it('should contain a link to the Terms page', () => {
     const termsLink = fixture.debugElement.query(By.css('a[href="/terms"]')).nativeElement;
     expect(termsLink).toBeTruthy();
     expect(termsLink.textContent.trim()).toBe('Terms');
   });
 
-  it('devrait contenir un lien vers la page Contact', () => {
+  it('should contain a link to the Contact page', () => {
     const contactLink = fixture.debugElement.query(By.css('a[href="/contact"]')).nativeElement;
     expect(contactLink).toBeTruthy();
     expect(contactLink.textContent.trim()).toBe('Contact');
@@ -53,18 +56,19 @@ describe('FooterComponent', () => {
     expect(contactLink.classList.contains('md:block')).toBeTrue();
   });
 
-  it('devrait contenir un lien vers la page Help', () => {
+  it('should contain a link to the Help page', () => {
     const helpLink = fixture.debugElement.query(By.css('a[href="/help"]')).nativeElement;
     expect(helpLink).toBeTruthy();
     expect(helpLink.textContent.trim()).toBe('Help');
   });
 
-  it('devrait avoir la classe bg-neutral-800 sur le footer', () => {
+  // Layout tests
+  it('should have the class bg-neutral-800 on the footer', () => {
     const footerElement = fixture.debugElement.query(By.css('footer')).nativeElement;
     expect(footerElement.classList.contains('bg-neutral-800')).toBeTrue();
   });
 
-  it('devrait avoir un layout responsive avec des classes flex', () => {
+  it('should have a responsive layout with flex classes', () => {
     const linksContainer = fixture.debugElement.query(By.css('div')).nativeElement;
     expect(linksContainer.classList.contains('flex')).toBeTrue();
     expect(linksContainer.classList.contains('flex-row')).toBeTrue();

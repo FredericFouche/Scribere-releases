@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/fred/Scribere/actions/workflows/ci.yml/badge.svg)](https://github.com/fred/Scribere/actions)
+[![Build Status](https://github.com/FredericFouche/Scribere/actions/workflows/WORKFLOW-FILE/badge.svg)](https://github.com/FredericFouche/Scribere)
 
 # Scribere
 
@@ -10,6 +10,7 @@ Scribere is a modern blogging platform that enables users to create, edit, and s
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Prerequisites](#prerequisites)
+- [Code Conventions & Standards](#code-conventions--standards)
 - [Getting Started](#getting-started)
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
@@ -44,7 +45,6 @@ Scribere/
 ├── backend/              # Spring Boot application
 │   ├── src/main/java     # Application code and controllers
 │   ├── src/main/resources
-│   │   ├── db/migration  # Flyway migration scripts
 │   │   └── application.properties
 │   └── src/test/java     # Integration and unit tests
 ├── frontend/scribere/    # Angular application
@@ -135,36 +135,21 @@ Production artifacts will be generated under `backend/target` and `frontend/scri
 
 ## Testing
 
-- **Backend tests**:
-  ```bash
-  cd backend
-  mvn test
-  ```
-- **Frontend unit tests**:
-  ```bash
-  cd frontend/scribere
-  npm test
-  ```
-- **Frontend end-to-end tests** (if configured):
-  ```bash
-  ng e2e
-  ```
+### Backend Tests
+Run the following command to execute all tests in the backend:
+
+```bash
+mvn test
+```
+
+### Frontend Tests
+Run the following command to execute all tests in the frontend:
+
+```bash
+ng test
+```
+
 
 ## Deployment
 
 You can deploy the services using Docker images or any container orchestration platform. A sample `docker-compose.yml` is provided for local and staging environments. For cloud deployment, build images:
-
-```bash
-# Backend image
-docker build -t scribere-backend ./backend
-# Frontend image
-docker build -t scribere-frontend ./frontend/scribere
-```
-
-Push images to your registry and update deployment manifests (Kubernetes, ECS, etc.).
-
-## Configuration
-
-- **Backend**: `application.properties` for database, Meilisearch, CORS, and Flyway settings.
-- **Frontend**: `environment.ts` in `src/app/env` for API endpoints.
-

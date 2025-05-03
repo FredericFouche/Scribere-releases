@@ -2,15 +2,17 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { SearchService, Article } from './search.service';
 
+/**
+ * Test suite for the SearchService.
+ */
 describe('SearchService', () => {
   let service: SearchService;
   let httpMock: HttpTestingController;
 
-  // Données factices à renvoyer
   const mockArticles: Article[] = [
     {
       id: '42',
-      title: 'Intro à Angular Testing',
+      title: 'Introduction to Angular Testing',
       slug: 'intro-angular-testing',
       coverImgUrl: null,
       readTime: 5,
@@ -26,41 +28,37 @@ describe('SearchService', () => {
       providers: [SearchService]
     });
 
-    service   = TestBed.inject(SearchService);
-    httpMock  = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(SearchService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    // S’assure qu’aucune requête pendante ne traîne
     httpMock.verify();
   });
 
-  it('should call GET /api/search?q=… and return articles', () => {
+  it('should call GET /api/search with query parameter and return articles', () => {
     service.getSearchResults('angular').subscribe(articles => {
       expect(articles).toEqual(mockArticles);
     });
 
-    // 1. On intercepte LA requête attendue
+    // Verify request is made with proper URL and parameters
     const req = httpMock.expectOne(
       r => r.method === 'GET' &&
-           r.url   === 'http://localhost:8080/api/search' &&
+           r.url === 'http://localhost:8080/api/search' &&
            r.params.get('q') === 'angular'
     );
 
-    // 2. On peut tester headers, body, etc.
     expect(req.request.responseType).toBe('json');
-
-    // 3. On renvoie une “réponse serveur” factice
     req.flush(mockArticles);
   });
 
-  it('should propagate backend errors', () => {
-    const status   = 500;
+  it('should propagate backend errors to the subscriber', () => {
+    const status = 500;
     const statusText = 'Server Error';
 
     service.getSearchResults('oops').subscribe({
       next: () => fail('should have errored'),
-      error:   err => {
+      error: err => {
         expect(err.status).toBe(status);
         expect(err.statusText).toBe(statusText);
       }

@@ -7,7 +7,7 @@ import { of, throwError } from 'rxjs';
 import { DebugElement } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-// Mock du service de recherche
+// Mock search service
 class MockSearchService {
   getSearchResults(term: string) {
     if (term === 'test') {
@@ -34,7 +34,7 @@ class MockSearchService {
         }
       ] as Article[]);
     } else if (term === 'error') {
-      return throwError(() => new Error('Erreur de recherche'));
+      return throwError(() => new Error('Search error'));
     } else {
       return of([]);
     }
@@ -67,63 +67,63 @@ describe('SearchBarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('devrait être créé', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
-  it('devrait afficher un champ de recherche avec le placeholder correct', () => {
+  it('should display a search field with the correct placeholder', () => {
     const searchInput = debugElement.query(By.css('input[type="text"]')).nativeElement;
     expect(searchInput.placeholder).toBe('Search articles...');
   });
 
-  it('devrait mettre à jour searchTerm lors de la saisie', () => {
+  it('should update searchTerm on input', () => {
     const searchInput = debugElement.query(By.css('input[type="text"]')).nativeElement;
     searchInput.value = 'test';
     searchInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
-    // NgModel nécessite un nouveau cycle de détection des changements
+    // NgModel requires a new change detection cycle
     component.onSearchInput();
     fixture.detectChanges();
 
     expect(component.searchTerm).toBe('test');
   });
 
-  it('devrait appeler onSearchInput lors de la saisie', () => {
+  it('should call onSearchInput on input', () => {
     spyOn(component, 'onSearchInput');
 
     const searchInput = debugElement.query(By.css('input[type="text"]')).nativeElement;
-    // Simuler un changement de modèle directement
+    // Simulate a model change directly
     component.searchTerm = 'test';
-    // Déclencher l'événement ngModelChange
+    // Trigger the ngModelChange event
     fixture.detectChanges();
 
-    // Le test est invalide car nous ne pouvons pas facilement simuler ngModelChange
-    // Nous vérifions plutôt que la méthode existe
+    // The test is invalid because we cannot easily simulate ngModelChange
+    // We check instead that the method exists
     expect(component.onSearchInput).toBeDefined();
   });
 
-  it('devrait appeler le service de recherche avec le terme correct', fakeAsync(() => {
+  it('should call the search service with the correct term', fakeAsync(() => {
     spyOn(mockSearchService, 'getSearchResults').and.returnValue(of([]));
 
     component.searchTerm = 'test';
     component.onSearchInput();
-    tick(300); // Attendre le debounceTime
+    tick(300); // Wait for debounceTime
 
     expect(mockSearchService.getSearchResults).toHaveBeenCalledWith('test');
   }));
 
-  it('devrait stocker les résultats de recherche', fakeAsync(() => {
+  it('should store search results', fakeAsync(() => {
     component.searchTerm = 'test';
     component.onSearchInput();
-    tick(300); // Attendre le debounceTime
+    tick(300); // Wait for debounceTime
 
     expect(component.results.length).toBe(2);
     expect(component.results[0].title).toBe('Test Article');
   }));
 
-  it('devrait effacer la recherche avec onClear', () => {
-    // Configurer un état avec des résultats
+  it('should clear the search with onClear', () => {
+    // Set up a state with results
     component.searchTerm = 'test';
     component.results = [{
       id: '1',
@@ -136,32 +136,32 @@ describe('SearchBarComponent', () => {
       updatedAt: '2023-04-28T12:00:00Z'
     }];
 
-    // Appeler onClear
+    // Call onClear
     component.onClear();
 
-    // Vérifier que tout est réinitialisé
+    // Verify that everything is reset
     expect(component.searchTerm).toBe('');
     expect(component.results.length).toBe(0);
     expect(component.error).toBeNull();
   });
 
-  it('devrait mettre en évidence les termes de recherche dans le texte', () => {
+  it('should highlight search terms in text', () => {
     component.searchTerm = 'test';
     const highlighted = component.highlightSearchTerm('This is a test text');
 
     expect(highlighted).toBe('This is a <span class="highlight">test</span> text');
   });
 
-  it('devrait effacer la recherche lors d\'un clic en dehors du conteneur', () => {
-    // Mock pour searchContainer
+  it('should clear the search on click outside the container', () => {
+    // Mock for searchContainer
     component.searchContainer = {
       nativeElement: document.createElement('div')
     } as any;
 
-    // Configurer un état avec une recherche
+    // Set up a state with a search
     component.searchTerm = 'test';
 
-    // Simuler un clic en dehors du conteneur
+    // Simulate a click outside the container
     const event = new MouseEvent('click');
     spyOn(component.searchContainer.nativeElement, 'contains').and.returnValue(false);
 

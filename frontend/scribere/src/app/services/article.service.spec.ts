@@ -5,6 +5,9 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { environment } from '../env/env';
 import { Article, ArticleService, Page } from './article.service';
 
+/**
+ * Test suite for the ArticleService.
+ */
 describe('ArticleService', () => {
   let service: ArticleService;
   let httpMock: HttpTestingController;
@@ -30,8 +33,12 @@ describe('ArticleService', () => {
     expect(service).toBeTruthy();
   });
 
+  /**
+   * Tests for the getArticles method
+   */
   describe('getArticles', () => {
     it('should return articles with default parameters', () => {
+      // Create a mock page response
       const mockPage: Page<Article> = {
         content: [
           {
@@ -52,10 +59,12 @@ describe('ArticleService', () => {
         last: true
       };
 
+      // Call the service method
       service.getArticles(0).subscribe(articles => {
         expect(articles).toEqual(mockPage);
       });
 
+      // Verify the request
       const req = httpMock.expectOne(`${apiUrl}?page=0&size=10&sort=createdAt,desc`);
       expect(req.request.method).toBe('GET');
       req.flush(mockPage);

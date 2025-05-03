@@ -2,27 +2,39 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 
+/**
+ * Pipe that safely removes HTML tags from a string.
+ * Works in both browser and server-side rendering environments.
+ *
+ * Usage:
+ * ```html
+ * {{ htmlContent | stripHtml }}
+ * ```
+ */
 @Pipe({
   name: 'stripHtml',
   standalone: true
 })
 export class StripHtmlPipe implements PipeTransform {
-
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
+  /**
+   * Transforms an HTML string into plain text by removing all HTML tags.
+   *
+   * @param value - The HTML string to transform
+   * @returns A plain text string with all HTML tags removed
+   */
   transform(value: string): string {
     if (!value) {
       return '';
     }
 
-    // Si nous sommes dans un navigateur, utiliser DOMParser
     if (isPlatformBrowser(this.platformId)) {
       const doc = new DOMParser().parseFromString(value, 'text/html');
       return doc.body.textContent || '';
     }
-    // Si nous sommes sur le serveur, utiliser une méthode compatible SSR
-    else if (isPlatformServer(this.platformId)) {
-      // Solution simple pour le SSR : supprimer les balises HTML avec une regex
+
+    if (isPlatformServer(this.platformId)) {
       return value.replace(/<[^>]*>/g, '');
     }
 
