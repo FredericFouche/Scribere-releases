@@ -47,3 +47,6 @@ Thumbs.db
 /frontend/scribere/.angular/cache
 /frontend/scribere/.vscode
 /frontend/scribere/.env
+
+/backend/target/
+/backend/target/*
