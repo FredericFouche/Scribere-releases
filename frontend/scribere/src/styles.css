@@ -443,3 +443,24 @@
   padding: 0 2px;
   border-radius: 2px;
 }
+
+.html-content > h1 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.html-content > h2,
+.html-content > h3,
+.html-content > h4 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.html-content > p {
+  text-indent: 2ch;
+  line-height: 1.45;
+}
+
+.html-content > p > strong {
+  font-weight: 700;
+}
