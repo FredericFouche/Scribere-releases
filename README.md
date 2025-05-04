@@ -10,7 +10,6 @@ Scribere is a modern blogging platform that enables users to create, edit, and s
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Prerequisites](#prerequisites)
-- [Code Conventions & Standards](#code-conventions--standards)
 - [Getting Started](#getting-started)
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
