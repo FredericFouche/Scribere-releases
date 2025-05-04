@@ -17,8 +17,6 @@ Scribere is a modern blogging platform that enables users to create, edit, and s
   - [Running with Docker](#running-with-docker)
 - [Building for Production](#building-for-production)
 - [Testing](#testing)
-- [Deployment](#deployment)
-- [Configuration](#configuration)
 
 ## Tech Stack
 
@@ -148,8 +146,3 @@ Run the following command to execute all tests in the frontend:
 ```bash
 ng test
 ```
-
-
-## Deployment
-
-You can deploy the services using Docker images or any container orchestration platform. A sample `docker-compose.yml` is provided for local and staging environments. For cloud deployment, build images:
