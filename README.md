@@ -1,6 +1,6 @@
 [![Build Status](https://github.com/FredericFouche/Scribere/actions/workflows/WORKFLOW-FILE/badge.svg)](https://github.com/FredericFouche/Scribere)
 
-# Scribere
+# [WIP]Scribere
 
 Scribere is a modern blogging platform that enables users to create, edit, and share rich-text articles with tags, search capabilities, and real-time indexing. It consists of a Spring Boot backend and an Angular frontend, with Postgres for data persistence, Meilisearch for fast search, and Flyway for database migrations.
 
