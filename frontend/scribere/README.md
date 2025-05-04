@@ -2,6 +2,25 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
 
+## Project Structure
+
+The project follows a modular architecture:
+
+- `app/shared`: Reusable components (navbar, footer, search, etc.)
+- `app/services`: API services and data providers
+- `app/pages`: Main page components
+- `app/layout`: Layout components and structure 
+- `app/pipe`: Custom Angular pipes
+
+## Code Conventions
+
+- **Language**: 
+  - All code and comments should be in English
+  - UI/UX text should be in French for the end user (or support internationalization for multiple languages)
+- **Tests**: Each component should have comprehensive tests
+- **Components**: Use standalone components where possible
+- **Styling**: Use Tailwind CSS with custom theme variables
+
 ## Development server
 
 To start a local development server, run:

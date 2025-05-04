@@ -5,16 +5,20 @@ import { NavbarComponent } from './navbar.component';
 import { SearchService } from '../../services/search.service';
 import { of } from 'rxjs';
 
-// Mock du service de recherche
+/**
+ * Mock implementation of the SearchService for testing
+ */
 class MockSearchService {
   getSearchResults() {
     return of([]);
   }
 }
 
-// Mock du composant SearchBar avec un sélecteur différent pour éviter les conflits
+/**
+ * Mock implementation of the SearchBar component to use in tests
+ */
 @Component({
-  selector: 'mock-search-bar', // Sélecteur différent pour éviter le conflit
+  selector: 'mock-search-bar',
   standalone: true,
   template: ''
 })
@@ -32,7 +36,6 @@ describe('NavbarComponent', () => {
       ]
     }).compileComponents();
 
-    // Remplacer le template du NavbarComponent pour utiliser notre mock
     TestBed.overrideComponent(NavbarComponent, {
       set: {
         template: `
@@ -61,42 +64,41 @@ describe('NavbarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('devrait être créé', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('devrait contenir un lien vers la page d\'accueil', () => {
+  it('should contain a link to the home page', () => {
     const homeLink = fixture.nativeElement.querySelector('a[routerLink="/"]');
     expect(homeLink).toBeTruthy();
     expect(homeLink.textContent).toContain('Scribere');
   });
 
-  it('devrait contenir un lien vers la page de connexion', () => {
+  it('should contain a link to the sign-in page', () => {
     const signInLink = fixture.nativeElement.querySelector('a[routerLink="/signin"]');
     expect(signInLink).toBeTruthy();
     expect(signInLink.textContent).toContain('Sign In');
   });
 
-  it('devrait contenir un lien vers la page About', () => {
+  it('should contain a link to the About page', () => {
     const aboutLink = fixture.nativeElement.querySelector('a[routerLink="/about"]');
     expect(aboutLink).toBeTruthy();
     expect(aboutLink.textContent).toContain('About');
   });
 
-  it('devrait contenir un lien Get Started', () => {
+  it('should contain a Get Started link', () => {
     const getStartedLink = fixture.nativeElement.querySelector('a.btn-ghost');
     expect(getStartedLink).toBeTruthy();
     expect(getStartedLink.textContent).toContain('Get Started');
   });
 
-  it('devrait avoir une méthode addArticle', () => {
+  it('should have an addArticle method', () => {
     spyOn(console, 'log');
     component.addArticle();
     expect(console.log).toHaveBeenCalledWith('Add article clicked');
   });
 
-  it('devrait inclure le composant SearchBar', () => {
-    // Nous vérifions maintenant notre mock-search-bar au lieu de app-search-bar
+  it('should include the SearchBar component', () => {
     const searchBar = fixture.nativeElement.querySelector('mock-search-bar');
     expect(searchBar).toBeTruthy();
   });

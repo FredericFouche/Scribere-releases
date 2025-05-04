@@ -20,15 +20,18 @@ import { OnInit, OnDestroy } from '@angular/core';
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
+
+/**
+ * SearchBarComponent is a component that provides a search bar functionality.
+ */
 export class SearchBarComponent implements OnInit, OnDestroy {
-  results: Article[] = [];
-  private subscription: Subscription | null = null;
-  error: string | null = null;
   private searchTerms = new Subject<string>();
+  private subscription: Subscription | null = null;
+  results: Article[] = [];
+  error: string | null = null;
   searchTerm: string = '';
 
-  constructor(private searchService: SearchService) {
-  }
+  constructor(private searchService: SearchService) {}
 
   ngOnInit() {
     this.searchTerms.pipe(
@@ -43,10 +46,23 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  /**
+   * Handles the input event of the search bar.
+   */
   onSearchInput() {
     this.searchTerms.next(this.searchTerm);
   }
 
+  /**
+   * Performs the search operation.
+   * @param term The search term.
+   */
   performSearch(term: string) {
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -72,6 +88,9 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Clears the search term and results.
+   */
   onClear() {
     this.searchTerm = '';
     this.results = [];
@@ -82,14 +101,15 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
-
+  /**
+   * Reference to the search container element.
+   */
   @ViewChild('searchContainer') searchContainer!: ElementRef;
 
+  /**
+   * Listens for click events outside the search container to clear the search.
+   * @param event The click event.
+   */
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
     if (
@@ -101,6 +121,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Highlights the search term in the given text.
+   * @param text The text to highlight the search term in.
+   * @returns The text with the search term highlighted.
+   */
   highlightSearchTerm(text: string): string {
     if (!this.searchTerm.trim() || !text) {
       return text;

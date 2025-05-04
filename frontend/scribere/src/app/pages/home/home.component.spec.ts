@@ -1,17 +1,14 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { HomeComponent } from './home.component';
 import { ArticleService, Article, Page } from '../../services/article.service';
-import { of, throwError } from 'rxjs';
-import { TagComponent } from '../../shared/tag/tag.component';
-import { StripHtmlPipe } from '../../pipe/striphtml';
+import { of } from 'rxjs';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
-// Mock des composants utilisés dans HomeComponent
 @Component({
   selector: 'app-hero',
   standalone: true,
@@ -29,20 +26,18 @@ class MockTagComponent {
   tag: any;
 }
 
-// Mock du pipe StripHtml
 class MockStripHtmlPipe {
   transform(value: string): string {
     return value.replace(/<[^>]*>/g, '');
   }
 }
 
-// Création de données de test
 const mockArticles: Article[] = [
   {
     id: '1',
-    title: 'Premier article',
-    content: '<p>Contenu du premier article</p>',
-    slug: 'premier-article',
+    title: 'First article',
+    content: '<p>Content of the first article</p>',
+    slug: 'first-article',
     coverImgUrl: 'https://example.com/image1.jpg',
     readTime: 5,
     createdAt: '2025-04-01T12:00:00Z',
@@ -50,9 +45,9 @@ const mockArticles: Article[] = [
   },
   {
     id: '2',
-    title: 'Deuxième article',
-    content: '<p>Contenu du deuxième article</p>',
-    slug: 'deuxieme-article',
+    title: 'Second article',
+    content: '<p>Content of the second article</p>',
+    slug: 'second-article',
     coverImgUrl: 'https://example.com/image2.jpg',
     readTime: 3,
     createdAt: '2025-04-02T12:00:00Z',
@@ -60,7 +55,6 @@ const mockArticles: Article[] = [
   }
 ];
 
-// Création d'une page mock
 const mockPage: Page<Article> = {
   content: mockArticles,
   pageable: {
@@ -72,9 +66,8 @@ const mockPage: Page<Article> = {
   last: false
 };
 
-// Mock du service d'articles
 class MockArticleService {
-  getArticles(page: number) {
+  getArticles() {
     return of(mockPage);
   }
 }
@@ -90,7 +83,6 @@ describe('HomeComponent', () => {
       imports: [
         CommonModule,
         RouterModule,
-        StripHtmlPipe,
         MockHeroComponent,
         MockTagComponent
       ],
@@ -102,12 +94,8 @@ describe('HomeComponent', () => {
             paramMap: of(new Map()),
             queryParamMap: of(new Map()),
             snapshot: {
-              paramMap: {
-                get: () => null
-              },
-              queryParamMap: {
-                get: () => null
-              }
+              paramMap: { get: () => null },
+              queryParamMap: { get: () => null }
             }
           }
         },
@@ -117,7 +105,7 @@ describe('HomeComponent', () => {
     })
     .overrideComponent(HomeComponent, {
       set: {
-        imports: [CommonModule, RouterModule, StripHtmlPipe, MockHeroComponent, MockTagComponent],
+        imports: [CommonModule, RouterModule, MockHeroComponent, MockTagComponent],
         providers: [{ provide: ArticleService, useClass: MockArticleService }]
       }
     })
@@ -131,30 +119,28 @@ describe('HomeComponent', () => {
   });
 
   afterEach(() => {
-    // Vérifier qu'il n'y a pas de requêtes HTTP en attente après chaque test
     httpTestingController.verify();
   });
 
-  it('devrait être créé', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
-  it('devrait charger les articles lors de l\'initialisation', () => {
-    // Le composant a déjà été initialisé dans beforeEach
+  it('should load articles during initialization', () => {
     expect(component.articles.length).toBe(2);
-    expect(component.articles[0].title).toBe('Premier article');
-    expect(component.articles[1].title).toBe('Deuxième article');
+    expect(component.articles[0].title).toBe('First article');
+    expect(component.articles[1].title).toBe('Second article');
   });
 
-  it('devrait mettre à jour currentPage après chargement des articles', () => {
-    expect(component.currentPage).toBe(1); // Commence à 0 et est incrémenté après chargement
+  it('should update currentPage after loading articles', () => {
+    expect(component.currentPage).toBe(1);
   });
 
-  it('devrait mettre hasMorePages à true quand la page n\'est pas la dernière', () => {
+  it('should set hasMorePages to true when the page is not the last one', () => {
     expect(component.hasMorePages).toBeTrue();
   });
 
-  it('devrait afficher un indicateur de chargement lorsque isLoading est true', () => {
+  it('should display a loading indicator when isLoading is true', () => {
     component.isLoading = true;
     fixture.detectChanges();
 
@@ -162,7 +148,7 @@ describe('HomeComponent', () => {
     expect(loadingElement).toBeTruthy();
   });
 
-  it('devrait appeler loadArticles lorsque loadMore est appelé', () => {
+  it('should call loadArticles when loadMore is called', () => {
     spyOn(component, 'loadArticles');
 
     component.loadMore();
@@ -170,7 +156,7 @@ describe('HomeComponent', () => {
     expect(component.loadArticles).toHaveBeenCalled();
   });
 
-  it('ne devrait pas appeler getArticles si isLoading est true', () => {
+  it('should not call getArticles if isLoading is true', () => {
     const spy = spyOn(articleService, 'getArticles');
     component.isLoading = true;
 
@@ -179,7 +165,7 @@ describe('HomeComponent', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('ne devrait pas appeler getArticles si hasMorePages est false', () => {
+  it('should not call getArticles if hasMorePages is false', () => {
     const spy = spyOn(articleService, 'getArticles');
     component.hasMorePages = false;
 
@@ -188,18 +174,17 @@ describe('HomeComponent', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('devrait inclure le composant HeroComponent', () => {
+  it('should include the HeroComponent', () => {
     const heroElement = fixture.debugElement.query(By.css('app-hero'));
     expect(heroElement).toBeTruthy();
   });
 
-  it('devrait afficher les tags pour chaque article', () => {
-    // Assumer que les articles et leurs tags sont affichés dans le template
+  it('should display tags for each article', () => {
     const tagElements = fixture.debugElement.queryAll(By.css('app-tag'));
     expect(tagElements.length).toBeGreaterThan(0);
   });
 
-  it('devrait afficher un bouton "Load more" quand hasMorePages est true et isLoading est false', () => {
+  it('should display a "Load more" button when hasMorePages is true and isLoading is false', () => {
     component.hasMorePages = true;
     component.isLoading = false;
     fixture.detectChanges();
@@ -209,7 +194,7 @@ describe('HomeComponent', () => {
     expect(loadMoreButton.nativeElement.textContent).toContain('Load more articles');
   });
 
-  it('ne devrait pas afficher de bouton "Load more" quand hasMorePages est false', () => {
+  it('should not display a "Load more" button when hasMorePages is false', () => {
     component.hasMorePages = false;
     fixture.detectChanges();
 
@@ -217,35 +202,35 @@ describe('HomeComponent', () => {
     expect(loadMoreButton).toBeFalsy();
   });
 
-  it('devrait afficher le titre "Latest Articles" sur la page', () => {
+  it('should display "Latest Articles" on the page', () => {
     const titleElement = fixture.debugElement.query(By.css('h1'));
     expect(titleElement).toBeTruthy();
     expect(titleElement.nativeElement.textContent.trim()).toBe('Latest Articles');
   });
 
-  it('devrait afficher la date formatée pour chaque article', () => {
+  it('should display the formatted date for each article', () => {
     const dateElements = fixture.debugElement.queryAll(By.css('.text-neutral-500 span:nth-child(3)'));
     expect(dateElements.length).toBeGreaterThan(0);
   });
 
-  it('devrait afficher le temps de lecture pour chaque article', () => {
+  it('should display the reading time for each article', () => {
     const readTimeElements = fixture.debugElement.queryAll(By.css('.text-neutral-500 span:nth-child(5)'));
     expect(readTimeElements.length).toBeGreaterThan(0);
   });
 
-  it('devrait afficher le lien "Read More" pour chaque article', () => {
+  it('should display the "Read More" link for each article', () => {
     const readMoreLinks = fixture.debugElement.queryAll(By.css('a.btn-ghost'));
     expect(readMoreLinks.length).toBe(component.articles.length);
     expect(readMoreLinks[0].nativeElement.textContent).toContain('Read More');
   });
 
-  it('devrait avoir des liens vers les articles avec les bonnes URLs', () => {
+  it('should have links to articles with correct URLs', () => {
     const readMoreLinks = fixture.debugElement.queryAll(By.css('a.btn-ghost'));
-    expect(readMoreLinks[0].attributes['ng-reflect-router-link']).toContain('/articles,premier-article');
-    expect(readMoreLinks[1].attributes['ng-reflect-router-link']).toContain('/articles,deuxieme-article');
+    expect(readMoreLinks[0].attributes['ng-reflect-router-link']).toContain('/articles,first-article');
+    expect(readMoreLinks[1].attributes['ng-reflect-router-link']).toContain('/articles,second-article');
   });
 
-  it('devrait afficher un message quand aucun article n\'est disponible', () => {
+  it('should display a message when no articles are available', () => {
     component.articles = [];
     component.isLoading = false;
     fixture.detectChanges();

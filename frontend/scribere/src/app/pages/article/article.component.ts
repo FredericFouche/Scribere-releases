@@ -4,6 +4,9 @@ import { ArticleService, Article } from '../../services/article.service';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 
+/**
+ * Component responsible for displaying a single article's full content
+ */
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -21,6 +24,9 @@ export class ArticleComponent implements OnInit {
     private articleService: ArticleService
   ) {}
 
+  /**
+   * Initializes the component by loading the article based on the slug from the route
+   */
   ngOnInit(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
     if (slug) {
@@ -28,6 +34,10 @@ export class ArticleComponent implements OnInit {
     }
   }
 
+  /**
+   * Fetches the article data from the API based on slug
+   * @param slug - The unique identifier for the article
+   */
   loadArticle(slug: string): void {
     this.isLoading = true;
     this.articleService.getArticles(0)
@@ -36,11 +46,11 @@ export class ArticleComponent implements OnInit {
         next: (page) => {
           this.article = page.content.find((a) => a.slug === slug) || null;
           if (!this.article) {
-            this.error = 'Article non trouvé.';
+            this.error = 'Article not found.';
           }
         },
         error: () => {
-          this.error = 'Erreur lors du chargement de l\'article.';
+          this.error = 'Error loading article.';
         }
       });
   }

@@ -19,6 +19,10 @@ interface Tag {
   standalone: true
 
 })
+
+/**
+ * TagComponent is a reusable component that displays a tag with a name and color.
+ */
 export class TagComponent {
   @Input() tag!: Tag;
 
