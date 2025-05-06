@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService, Article } from '../../services/article.service';
 import { CommonModule } from '@angular/common';
@@ -18,10 +18,10 @@ export class ArticleComponent implements OnInit {
   article: Article | null = null;
   isLoading = true;
   error: string | null = null;
+  readonly #articleService: ArticleService = inject(ArticleService);
 
   constructor(
-    private route: ActivatedRoute,
-    private articleService: ArticleService
+    private route: ActivatedRoute
   ) {}
 
   /**
@@ -40,7 +40,7 @@ export class ArticleComponent implements OnInit {
    */
   loadArticle(slug: string): void {
     this.isLoading = true;
-    this.articleService.getArticles(0)
+    this.#articleService.getArticles(0)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: (page) => {
