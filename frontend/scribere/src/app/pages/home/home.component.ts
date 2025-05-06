@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Article, ArticleService, Page } from '../../services/article.service';
 import { finalize } from 'rxjs';
 import { StripHtmlPipe } from '../../pipe/striphtml';
@@ -28,9 +28,9 @@ export class HomeComponent implements OnInit {
   currentPage = 0;
   isLoading = false;
   hasMorePages = true;
+  readonly #articleService: ArticleService = inject(ArticleService);
 
   constructor(
-    private articleService: ArticleService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     if (this.isLoading || !this.hasMorePages) return;
 
     this.isLoading = true;
-    this.articleService.getArticles(this.currentPage)
+    this.#articleService.getArticles(this.currentPage)
       .pipe(
         finalize(() => this.isLoading = false)
       )

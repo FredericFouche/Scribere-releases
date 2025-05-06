@@ -25,7 +25,6 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit() {
     this.checkIfHomePage();
-
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
