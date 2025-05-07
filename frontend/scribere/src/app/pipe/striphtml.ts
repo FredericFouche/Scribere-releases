@@ -2,15 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 
-/**
- * Pipe that safely removes HTML tags from a string.
- * Works in both browser and server-side rendering environments.
- *
- * Usage:
- * ```html
- * {{ htmlContent | stripHtml }}
- * ```
- */
 @Pipe({
   name: 'stripHtml',
   standalone: true
@@ -32,10 +23,6 @@ export class StripHtmlPipe implements PipeTransform {
     if (isPlatformBrowser(this.platformId)) {
       const doc = new DOMParser().parseFromString(value, 'text/html');
       return doc.body.textContent || '';
-    }
-
-    if (isPlatformServer(this.platformId)) {
-      return value.replace(/<[^>]*>/g, '');
     }
 
     return value;

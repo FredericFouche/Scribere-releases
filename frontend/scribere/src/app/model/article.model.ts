@@ -1,4 +1,3 @@
-
 /**
  * Represents an article with its essential properties.
  */
