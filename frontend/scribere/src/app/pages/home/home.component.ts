@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Article, ArticleService, Page } from '../../services/article.service';
+import { Article } from '../../model/article.model';
+import { ArticleService, Page } from '../../services/article.service';
 import { finalize } from 'rxjs';
 import { StripHtmlPipe } from '../../pipe/striphtml';
 import { CommonModule } from '@angular/common';
