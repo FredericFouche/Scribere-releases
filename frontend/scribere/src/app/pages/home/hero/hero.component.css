@@ -30,14 +30,12 @@
   mix-blend-mode: multiply;
 }
 
-/* Solution de repli pour les navigateurs qui ne supportent pas animation-timeline */
 @media screen {
   .parallax {
     transform: translateY(calc(var(--parallax-offset, 0) * -1%));
   }
 }
 
-/* Support modern pour les navigateurs qui supportent animation-timeline */
 @supports (animation-timeline: scroll()) {
   @keyframes yParallax {
     from {

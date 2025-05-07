@@ -15,8 +15,7 @@ import { OnInit } from '@angular/core';
     FooterComponent,
     CommonModule
   ],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
+  templateUrl: './layout.component.html'
 })
 export class LayoutComponent implements OnInit {
   isHomePage = false;

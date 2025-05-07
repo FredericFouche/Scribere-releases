@@ -17,8 +17,7 @@ import { OnInit, OnDestroy } from '@angular/core';
     FormsModule,
     RouterLink
   ],
-  templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.css'
+  templateUrl: './search-bar.component.html'
 })
 
 /**
