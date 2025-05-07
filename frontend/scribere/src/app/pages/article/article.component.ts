@@ -39,7 +39,9 @@ export class ArticleComponent implements OnInit {
    * @param slug - The unique identifier for the article
    */
   loadArticle(slug: string): void {
+
     this.isLoading = true;
+
     this.#articleService.getArticles(0)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({

@@ -28,4 +28,8 @@ export const routes: Routes = [
     path: 'articles/:slug',
     component: ArticleComponent
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
