@@ -15,9 +15,7 @@ interface Tag {
     CommonModule
   ],
   templateUrl: './tag.component.html',
-  styleUrl: './tag.component.css',
   standalone: true
-
 })
 
 /**

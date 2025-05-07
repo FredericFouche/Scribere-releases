@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule
   ],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {}

@@ -13,8 +13,7 @@ import { RouterLink } from '@angular/router';
     SearchBarComponent,
     RouterLink
   ],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  templateUrl: './navbar.component.html'
 })
 
 export class NavbarComponent {
