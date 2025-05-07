@@ -1,22 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { environment } from '../env/env';
-
-/**
- * Represents an article with its essential properties.
- */
-export interface Article {
-  id: string;
-  title: string;
-  slug: string;
-  coverImgUrl?: string;
-  readTime?: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Article } from '../model/article.model';
 
 /**
  * Represents a paginated response of items.
@@ -67,8 +53,6 @@ export class ArticleService {
    * @returns An Observable with the article or null if not found
    */
   getArticleBySlug(slug: string): Observable<Article | null> {
-    return this.getArticles(0).pipe(
-      map((page) => page.content.find((article) => article.slug === slug) || null)
-    );
+    return this.http.get<Article>(`${this.apiUrl}/by-slug/${slug}`);
   }
 }

@@ -1,19 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-/**
- * Represents an article with its essential properties.
- */
-export interface Article {
-  id: string;title: string;
-  slug: string;
-  coverImgUrl: string | null;
-  readTime: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Article } from '../model/article.model';
 
 /**
  * Service that handles article search functionality.
