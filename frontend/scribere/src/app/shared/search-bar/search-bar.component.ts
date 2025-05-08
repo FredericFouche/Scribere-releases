@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Article } from '../../model/article.model';
-import { SearchService } from '../../services/search.service';
+import { SearchService } from '../../services/search/search.service';
 import { Subscription, catchError } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { ElementRef, HostListener, ViewChild } from '@angular/core';

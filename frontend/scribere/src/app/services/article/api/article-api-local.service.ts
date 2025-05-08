@@ -1,10 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../env/env';
-import { Article } from '../model/article.model';
-import { Page } from '../model/page.model';
-import { ArticleService } from './article.service';
+import { environment } from '../../../env/env';
+import { Article } from '../../../model/article.model';
+import { Page } from '../../../model/page.model';
+import { ArticleService } from '../article.service';
 
 /**
  * Service that handles article CRUD operations.

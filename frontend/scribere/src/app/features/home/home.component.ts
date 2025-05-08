@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Article } from '../../model/article.model';
-import { ArticleService } from '../../services/article.service';
+import { ArticleService } from '../../services/article/article.service';
 import { finalize } from 'rxjs';
-import { StripHtmlPipe } from '../../pipe/striphtml';
+import { StripHtmlPipe } from '../../core/pipe/striphtml';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from './hero/hero.component';

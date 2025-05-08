@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArticleService } from '../../services/article.service';
+import { ArticleService } from '../../services/article/article.service';
 import { Article } from '../../model/article.model';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
