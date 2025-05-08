@@ -43,7 +43,7 @@ export class ArticleComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.#articleService.getArticles(0)
+    this.#articleService.getArticles(0, 10)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: (page) => {
