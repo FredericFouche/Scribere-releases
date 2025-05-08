@@ -1,10 +1,11 @@
 package com.scribere.backend.controller;
 
 import com.scribere.backend.dto.ArticleDto;
-import com.scribere.backend.mapper.ArticleMapper;
-import com.scribere.backend.repository.ArticleRepository;
 import com.scribere.backend.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,19 @@ public class ArticleController {
         } else {
             return articleService.findAll(pageable);
         }
+    }
+
+    /**
+     * Retrieves a single article by its id.
+     * 
+     * @param id The id of the article
+     * @return The article DTO
+     */
+    @GetMapping("/articles/{id}")
+    public ResponseEntity<ArticleDto> get(@PathVariable UUID id) {
+        return articleService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     /**

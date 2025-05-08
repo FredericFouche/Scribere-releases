@@ -9,27 +9,29 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    title: 'Scribere',
     children: [
       {
         path: '',
-        component: LandingPageComponent
+        component: LandingPageComponent,
+        title: 'Scribere - Where story becomes a reality'
       },
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        title: 'Scribere - Scrolling through the pages of journey',
       },
     ]
   },
   {
     path: 'editor',
-    component: EditorComponent
+    component: EditorComponent,
+    title: 'Scribere - Write your story',
   },
   {
-    path: 'articles/:slug',
+    path: 'articles/:id/:slug',
     component: ArticleComponent,
-    data: {
-      renderMode: 'client'
-    }
+    title: 'Scribere - Article',
   },
   {
     path: '**',

@@ -38,7 +38,7 @@ export class ArticleApiLocalService implements ArticleService {
    * @param slug - The URL-friendly identifier of the article
    * @returns An Observable with the article or null if not found
    */
-  getArticleBySlug(slug: string): Observable<Article | null> {
-    return this.http.get<Article>(`${this.#apiUrl}/by-slug/${slug}`);
+  getArticleById(id: string) {
+    return this.http.get<Article>(`${this.#apiUrl}/${id}`)
   }
 }

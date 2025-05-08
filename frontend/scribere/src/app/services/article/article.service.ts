@@ -11,5 +11,6 @@ import { Page } from '../../model/page.model';
 })
 export abstract class ArticleService {
   abstract getArticles(page: number, size: number): Observable<Page<Article>>;
-  abstract getArticleBySlug(slug: string): Observable<Article | null>;
+  abstract getArticleById(id: string): Observable<Article | null>;
 }
+  

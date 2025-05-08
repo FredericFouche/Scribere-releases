@@ -29,31 +29,25 @@ export class ArticleComponent implements OnInit {
    * Initializes the component by loading the article based on the slug from the route
    */
   ngOnInit(): void {
-    const slug = this.route.snapshot.paramMap.get('slug');
-    if (slug) {
-      this.loadArticle(slug);
-    }
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.loadArticleById(id);
+      }
+    });
   }
 
-  /**
-   * Fetches the article data from the API based on slug
-   * @param slug - The unique identifier for the article
-   */
-  loadArticle(slug: string): void {
-
+  loadArticleById(id: string): void {
     this.isLoading = true;
 
-    this.#articleService.getArticles(0, 10)
+    this.#articleService.getArticleById(id)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
-        next: (page) => {
-          this.article = page.content.find((a) => a.slug === slug) || null;
-          if (!this.article) {
-            this.error = 'Article not found.';
-          }
+        next: (article) => {
+          this.article = article;
         },
-        error: () => {
-          this.error = 'Error loading article.';
+        error: (err) => {
+          this.error = err.status === 404 ? 'Article not found.' : 'Error loading article.';
         }
       });
   }
