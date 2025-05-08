@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:scribere": "node dist/scribere/server/server.mjs"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
@@ -17,9 +16,7 @@
     "@angular/forms": "^19.2.0",
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
-    "@angular/platform-server": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "@angular/ssr": "^19.2.8",
     "@tailwindcss/postcss": "^4.1.4",
     "@tiptap/core": "^2.11.7",
     "@tiptap/extension-image": "^2.11.7",
@@ -32,7 +29,6 @@
     "@tiptap/extension-text-align": "^2.11.7",
     "@tiptap/extension-underline": "^2.11.7",
     "@tiptap/starter-kit": "^2.11.7",
-    "express": "^4.18.2",
     "lucide-angular": "^0.503.0",
     "ngx-tiptap": "^12.0.0",
     "rxjs": "~7.8.0",
@@ -43,7 +39,6 @@
     "@angular-devkit/build-angular": "^19.2.8",
     "@angular/cli": "^19.2.8",
     "@angular/compiler-cli": "^19.2.0",
-    "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "@types/uuid": "^10.0.0",

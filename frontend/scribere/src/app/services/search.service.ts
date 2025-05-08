@@ -10,7 +10,7 @@ import { Article } from '../model/article.model';
   providedIn: 'root'
 })
 export class SearchService {
-  private apiUrl = 'http://localhost:8080/api/search';
+  readonly #apiUrl = 'http://localhost:8080/api/search';
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +22,6 @@ export class SearchService {
    */
   getSearchResults(query: string): Observable<Article[]> {
     const params = new HttpParams().set('q', query);
-    return this.http.get<Article[]>(this.apiUrl, { params });
+    return this.http.get<Article[]>(this.#apiUrl, { params });
   }
 }

@@ -26,7 +26,7 @@ export interface Page<T> {
   providedIn: 'root'
 })
 export class ArticleService {
-  private apiUrl = `${environment.apiUrl}/articles`;
+  readonly #apiUrl = `${environment.apiUrl}/articles`;
 
   constructor(private http: HttpClient) { }
 
@@ -43,7 +43,7 @@ export class ArticleService {
       .set('size', size.toString())
       .set('sort', 'createdAt,desc');
 
-    return this.http.get<Page<Article>>(this.apiUrl, { params });
+    return this.http.get<Page<Article>>(this.#apiUrl, { params });
   }
 
   /**
@@ -53,6 +53,6 @@ export class ArticleService {
    * @returns An Observable with the article or null if not found
    */
   getArticleBySlug(slug: string): Observable<Article | null> {
-    return this.http.get<Article>(`${this.apiUrl}/by-slug/${slug}`);
+    return this.http.get<Article>(`${this.#apiUrl}/by-slug/${slug}`);
   }
 }
