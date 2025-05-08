@@ -18,9 +18,9 @@ import Placeholder from '@tiptap/extension-placeholder';
  * Rich text editor component for article creation and editing
  */
 @Component({
-  selector: 'app-editor-component',
-  templateUrl: './editor-component.component.html',
-  styleUrls: ['./editor-component.component.css'],
+  selector: 'app-editor',
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.css'],
   standalone: true,
   imports: [CommonModule, TiptapEditorDirective]
 })
