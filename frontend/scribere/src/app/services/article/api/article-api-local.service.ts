@@ -1,23 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../env/env';
-import { Article } from '../model/article.model';
-
-/**
- * Represents a paginated response of items.
- * @template T - The type of the items in the page
- */
-export interface Page<T> {
-  content: T[];
-  pageable: {
-    pageNumber: number;
-    pageSize: number;
-  };
-  totalElements: number;
-  totalPages: number;
-  last: boolean;
-}
+import { environment } from '../../../env/env';
+import { Article } from '../../../model/article.model';
+import { Page } from '../../../model/page.model';
+import { ArticleService } from '../article.service';
 
 /**
  * Service that handles article CRUD operations.
@@ -25,10 +12,9 @@ export interface Page<T> {
 @Injectable({
   providedIn: 'root'
 })
-export class ArticleService {
+export class ArticleApiLocalService implements ArticleService {
   readonly #apiUrl = `${environment.apiUrl}/articles`;
-
-  constructor(private http: HttpClient) { }
+  private readonly http = inject(HttpClient);
 
   /**
    * Retrieves a paginated list of articles.
@@ -52,7 +38,7 @@ export class ArticleService {
    * @param slug - The URL-friendly identifier of the article
    * @returns An Observable with the article or null if not found
    */
-  getArticleBySlug(slug: string): Observable<Article | null> {
-    return this.http.get<Article>(`${this.#apiUrl}/by-slug/${slug}`);
+  getArticleById(id: string) {
+    return this.http.get<Article>(`${this.#apiUrl}/${id}`)
   }
 }

@@ -1,35 +1,37 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './layout/layout.component';
-import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-import { HomeComponent } from './pages/home/home.component';
-import { EditorComponent } from './pages/editor/editor.component';
-import { ArticleComponent } from './pages/article/article.component';
+import { LayoutComponent } from './features/layout/layout.component';
+import { LandingPageComponent } from './features/landing-page/landing-page.component';
+import { HomeComponent } from './features/home/home.component';
+import { EditorComponent } from './features/editor/editor.component';
+import { ArticleComponent } from './features/article/article.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    title: 'Scribere',
     children: [
       {
         path: '',
-        component: LandingPageComponent
+        component: LandingPageComponent,
+        title: 'Scribere - Where story becomes a reality'
       },
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        title: 'Scribere - Scrolling through the pages of journey',
       },
     ]
   },
   {
     path: 'editor',
-    component: EditorComponent
+    component: EditorComponent,
+    title: 'Scribere - Write your story',
   },
   {
-    path: 'articles/:slug',
+    path: 'articles/:id/:slug',
     component: ArticleComponent,
-    data: {
-      renderMode: 'client'
-    }
+    title: 'Scribere - Article',
   },
   {
     path: '**',

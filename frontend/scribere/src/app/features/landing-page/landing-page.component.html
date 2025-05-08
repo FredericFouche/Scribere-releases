@@ -1,22 +1,22 @@
 <section
-  class="relative h-[75vh] grid grid-cols-1 lg:grid-cols-12 gap-4 items-center justify-center padding-vertical"
+  class="min-h-screen lg:h-screen grid grid-cols-1 lg:grid-cols-2 gap-4 items-center padding-vertical overflow-hidden"
 >
-  <div
-    class="landing-page flex-grow flex flex-col justify-center col-span-1 lg:col-span-8"
-  >
+  <div class="flex flex-col my-auto">
     <h2 class="catch-phrase text-7xl xs:text-8xl md:text-9xl mb-8">
       Stories that stay. Ideas that grow.
     </h2>
     <p class="sub-p text-xl md:text-2xl mb-12">
       Where every word is a seed, and every story a garden of ideas.
     </p>
-    <button routerLink="/signin" class="button w-44">Start your journey</button>
-    <div class="illustration-container"></div>
+    <button [routerLink]="['/home']" class="button w-44">
+      Start your journey
+    </button>
   </div>
 
-  <!-- Illustration carroussel absolute -->
-  <div class="hidden lg:block lg:col-span-4 h-full">
-    <div class="aspect-[3/4] w-full h-auto relative overflow-hidden">
+  <div
+    class="h-full w-full hidden lg:flex items-center justify-center overflow-hidden"
+  >
+    <div class="w-3/5 h-3/5 relative">
       <img
         src="assets/images/illustrations/illustration1.svg"
         alt="Illustration 1"

@@ -5,8 +5,10 @@ import com.scribere.backend.event.ArticleSavedEvent;
 import com.scribere.backend.mapper.ArticleMapper;
 import com.scribere.backend.model.Article;
 import com.scribere.backend.repository.ArticleRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,5 +68,17 @@ public class ArticleService {
         ArticleDto savedArticleDto = articleMapper.toDto(article);
         eventPublisher.publishEvent(new ArticleSavedEvent(savedArticleDto));
         return savedArticleDto;
+    }
+
+    /**
+     * Find an article by its id.
+     *
+     * @param id The id of the article to find.
+     * @return The article with the given id.
+     */
+    @Transactional(readOnly = true)
+    public Optional<ArticleDto> findById(UUID id) {
+        return articleRepository.findById(id)
+                .map(articleMapper::toDto);
     }
 }

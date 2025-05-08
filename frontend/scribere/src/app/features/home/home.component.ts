@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Article } from '../../model/article.model';
-import { ArticleService, Page } from '../../services/article.service';
+import { ArticleService } from '../../services/article/article.service';
 import { finalize } from 'rxjs';
-import { StripHtmlPipe } from '../../pipe/striphtml';
+import { StripHtmlPipe } from '../../core/pipe/striphtml';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from './hero/hero.component';
 import { TagComponent } from '../../shared/tag/tag.component';
+import { Page } from '../../model/page.model';
 
 @Component({
   selector: 'app-home',
@@ -19,9 +20,7 @@ import { TagComponent } from '../../shared/tag/tag.component';
     HeroComponent,
     TagComponent
   ],
-  providers: [
-    ArticleService
-  ]
+  providers: []
 })
 export class HomeComponent implements OnInit {
   articles: Article[] = [];
@@ -41,7 +40,7 @@ export class HomeComponent implements OnInit {
     if (this.isLoading || !this.hasMorePages) return;
 
     this.isLoading = true;
-    this.#articleService.getArticles(this.currentPage)
+    this.#articleService.getArticles(this.currentPage, 10)
       .pipe(
         finalize(() => this.isLoading = false)
       )
