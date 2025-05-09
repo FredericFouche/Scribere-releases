@@ -14,7 +14,7 @@ import { ArticleService } from '../article.service';
 })
 export class ArticleApiLocalService implements ArticleService {
   readonly #apiUrl = `${environment.apiUrl}/articles`;
-  private readonly http = inject(HttpClient);
+  readonly #http = inject(HttpClient);
 
   /**
    * Retrieves a paginated list of articles.
@@ -29,7 +29,7 @@ export class ArticleApiLocalService implements ArticleService {
       .set('size', size.toString())
       .set('sort', 'createdAt,desc');
 
-    return this.http.get<Page<Article>>(this.#apiUrl, { params });
+    return this.#http.get<Page<Article>>(this.#apiUrl, { params });
   }
 
   /**
@@ -39,6 +39,6 @@ export class ArticleApiLocalService implements ArticleService {
    * @returns An Observable with the article or null if not found
    */
   getArticleById(id: string) {
-    return this.http.get<Article>(`${this.#apiUrl}/${id}`)
+    return this.#http.get<Article>(`${this.#apiUrl}/${id}`)
   }
 }

@@ -12,7 +12,7 @@ import { SearchService } from '../search.service';
 })
 export class SearchApiLocalService implements SearchService {
   readonly #apiUrl = 'http://localhost:8080/api/search';
-  private readonly http = inject(HttpClient);
+  readonly #http = inject(HttpClient);
 
   /**
    * Searches for articles matching the provided query.
@@ -22,6 +22,6 @@ export class SearchApiLocalService implements SearchService {
    */
   getSearchResults(query: string): Observable<Article[]> {
     const params = new HttpParams().set('q', query);
-    return this.http.get<Article[]>(this.#apiUrl, { params });
+    return this.#http.get<Article[]>(this.#apiUrl, { params });
   }
 }
