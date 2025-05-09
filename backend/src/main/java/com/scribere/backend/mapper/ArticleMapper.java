@@ -27,7 +27,6 @@ public class ArticleMapper {
         dto.setCreatedAt(article.getCreatedAt());
         dto.setUpdatedAt(article.getUpdatedAt());
 
-        // Conversion des tags
         if (article.getTags() != null) {
             dto.setTags(article.getTags().stream()
                     .map(tagMapper::toDto)

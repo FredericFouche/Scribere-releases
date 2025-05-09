@@ -3,6 +3,7 @@ package com.scribere.backend.controller;
 import org.springframework.web.bind.annotation.RestController;
 import com.scribere.backend.dto.TagDto;
 import com.scribere.backend.service.TagService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/tags")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class TagController {
     private final TagService tagService;
@@ -37,7 +38,7 @@ public class TagController {
      * @param name the tag name to search
      * @return a list of TagDto objects
      */
-    @GetMapping("/name/{name}")
+    @GetMapping("/tags/{name}")
     public List<TagDto> findByName(@PathVariable String name) {
         return tagService.findByName(name);
     }
@@ -48,7 +49,7 @@ public class TagController {
      * @param slug the slug to search
      * @return a list of TagDto objects
      */
-    @GetMapping("/slug/{slug}")
+    @GetMapping("/tags/{slug}")
     public List<TagDto> findBySlug(@PathVariable String slug) {
         return tagService.findBySlug(slug);
     }
