@@ -13,12 +13,8 @@ import { TagComponent } from '../../../shared/tag/tag.component';
 export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   private scrollListener: (() => void) | null = null;
   private parallaxElement: HTMLElement | null = null;
-  private isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
-    this.isBrowser = isPlatformBrowser(platformId);
-
-    if (this.isBrowser) {
+  constructor() {
       this.scrollListener = () => {
         if (!this.parallaxElement) return;
 
@@ -27,29 +23,15 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
         const scrollPercentage = Math.min(scrollTop / windowHeight, 1);
 
         const parallaxOffset = scrollPercentage * 20;
-        this.parallaxElement.style.setProperty('--parallax-offset', parallaxOffset.toString());
+        this.parallaxElement
+          .style.setProperty('--parallax-offset', parallaxOffset.toString());
       };
-    }
   }
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    if (!this.isBrowser) return;
-
-    let supportsScrollTimeline = false;
-
-    try {
-      supportsScrollTimeline =
-        typeof CSS !== 'undefined' &&
-        CSS.supports &&
-        (CSS.supports('animation-timeline: scroll()') || CSS.supports('animation-timeline: auto'));
-    } catch (e) {
-      supportsScrollTimeline = false;
-    }
-
     this.parallaxElement = document.querySelector('.parallax');
-
     if (this.scrollListener) {
       window.addEventListener('scroll', this.scrollListener, { passive: true });
       this.scrollListener();
@@ -57,7 +39,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    if (this.isBrowser && this.scrollListener) {
+    if (this.scrollListener) {
       window.removeEventListener('scroll', this.scrollListener);
     }
   }

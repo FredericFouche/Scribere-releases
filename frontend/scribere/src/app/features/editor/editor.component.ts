@@ -67,7 +67,7 @@ export class EditorComponent implements OnInit, OnDestroy {
    */
   getCharacterCount(): number {
     if (!this.editor) return 0;
-    const text = this.editor.getText();
+    const text: string = this.editor.getText();
     return text.length;
   }
 

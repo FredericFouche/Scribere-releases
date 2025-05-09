@@ -55,8 +55,4 @@ export class HomeComponent implements OnInit {
         }
       });
   }
-
-  loadMore(): void {
-    this.loadArticles();
-  }
 }

@@ -4,6 +4,7 @@ import { ArticleService } from '../../services/article/article.service';
 import { Article } from '../../model/article.model';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
+import { SafeHtml } from '@angular/platform-browser';
 
 /**
  * Component responsible for displaying a single article's full content
@@ -19,6 +20,7 @@ export class ArticleComponent implements OnInit {
   article: Article | null = null;
   isLoading = true;
   error: string | null = null;
+  safeContent: SafeHtml = '';
   readonly #articleService: ArticleService = inject(ArticleService);
 
   constructor(
@@ -35,6 +37,10 @@ export class ArticleComponent implements OnInit {
         this.loadArticleById(id);
       }
     });
+
+    if (this.article) {
+      this.safeContent = this.article.content;
+    }
   }
 
   loadArticleById(id: string): void {
