@@ -12,7 +12,6 @@ import { SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css'],
   standalone: true,
   imports: [CommonModule]
 })
@@ -37,10 +36,6 @@ export class ArticleComponent implements OnInit {
         this.loadArticleById(id);
       }
     });
-
-    if (this.article) {
-      this.safeContent = this.article.content;
-    }
   }
 
   loadArticleById(id: string): void {
@@ -51,6 +46,11 @@ export class ArticleComponent implements OnInit {
       .subscribe({
         next: (article) => {
           this.article = article;
+          if (!article) {
+            this.error = 'Article not found.';
+            return;
+          }
+          this.safeContent = article.content;
         },
         error: (err) => {
           this.error = err.status === 404 ? 'Article not found.' : 'Error loading article.';
