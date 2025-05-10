@@ -20,20 +20,24 @@ public class ArticleController {
     /**
      * Lists articles, optionally filtered by tag.
      *
-     * @param tag      Optional tag slug to filter articles
      * @param pageable Pagination information
      * @return A page of article DTOs
      */
     @GetMapping("/articles")
-    public Page<ArticleDto> list(
-            @RequestParam(required = false) String tag,
-            Pageable pageable) {
+    public Page<ArticleDto> list(@RequestParam(required = false) Pageable pageable) {
+        return articleService.findAll(pageable);
+    }
 
-        if (tag != null && !tag.isEmpty()) {
-            return articleService.findByTagSlug(tag, pageable);
-        } else {
-            return articleService.findAll(pageable);
-        }
+    /**
+     * Lists articles filtered by a specific tag.
+     *
+     * @param tag      The tag to filter by
+     * @param pageable Pagination information
+     * @return A page of article DTOs
+     */
+    @GetMapping("/articles/tag/{tag}")
+    public Page<ArticleDto> listByTag(@PathVariable String tag, Pageable pageable) {
+        return articleService.findByTag(pageable, tag);
     }
 
     /**

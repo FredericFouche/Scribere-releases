@@ -472,3 +472,23 @@
   width: 100%;
   z-index: 50;
 }
+
+.article-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.article-container img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+}
+
+.article-container h1 {
+  color: #1a202c;
+}
+
+.article-container p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}

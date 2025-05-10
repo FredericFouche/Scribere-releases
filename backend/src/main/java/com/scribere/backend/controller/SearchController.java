@@ -36,7 +36,14 @@ public class SearchController {
     public ResponseEntity<List<ArticleDto>> search(
             @RequestParam("q") String query,
             @RequestParam(value = "limit", defaultValue = "10") int limit) {
+
         List<ArticleDto> results = searchService.search(query, limit);
+
+        if (results.isEmpty()) {
+            // if no results are found, return a 204
+            return ResponseEntity.noContent().build();
+        }
+
         return ResponseEntity.ok(results);
     }
 }
