@@ -16,4 +16,7 @@ public interface ArticleRepository extends JpaRepository<Article, UUID> {
 
     @Query("SELECT a FROM Article a JOIN a.tags t WHERE t.slug = :tagSlug ORDER BY a.createdAt DESC")
     Page<Article> findByTagSlugOrderByCreatedAtDesc(@Param("tagSlug") String tagSlug, Pageable pageable);
+
+    @Query("SELECT a FROM Article a JOIN a.tags t WHERE t.slug = :tag ORDER BY a.createdAt DESC")
+    Page<Article> findByTag(@Param("tag") String tag, Pageable pageable);
 }

@@ -4,6 +4,7 @@ import com.scribere.backend.dto.ArticleDto;
 import com.scribere.backend.event.ArticleSavedEvent;
 import com.scribere.backend.mapper.ArticleMapper;
 import com.scribere.backend.model.Article;
+import com.scribere.backend.model.Tag;
 import com.scribere.backend.repository.ArticleRepository;
 
 import java.util.Optional;
@@ -79,6 +80,19 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public Optional<ArticleDto> findById(UUID id) {
         return articleRepository.findById(id)
+                .map(articleMapper::toDto);
+    }
+
+    /**
+     * Find all article by tag.
+     * 
+     * @param tag      The tag name.
+     * @param pageable Pagination information
+     * @return A page of articles DTO
+     */
+    @Transactional(readOnly = true)
+    public Page<ArticleDto> findByTag(Pageable pageable, String tag) {
+        return articleRepository.findByTag(tag, pageable)
                 .map(articleMapper::toDto);
     }
 }
