@@ -4,7 +4,6 @@ import com.scribere.backend.dto.ArticleDto;
 import com.scribere.backend.event.ArticleSavedEvent;
 import com.scribere.backend.mapper.ArticleMapper;
 import com.scribere.backend.model.Article;
-import com.scribere.backend.model.Tag;
 import com.scribere.backend.repository.ArticleRepository;
 
 import java.util.Optional;
