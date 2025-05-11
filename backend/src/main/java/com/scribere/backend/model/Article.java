@@ -1,14 +1,23 @@
 package com.scribere.backend.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.UUID;
+import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
 
 /**
  * Entity representing an article in the system.
@@ -17,9 +26,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "articles")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Article {
 
     /**
@@ -100,4 +106,117 @@ public class Article {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "article_tags", joinColumns = @JoinColumn(name = "article_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags = new HashSet<>();
+    
+    // Constructors
+    public Article() {
+    }
+    
+    public Article(UUID id, String title, String slug, String coverImgUrl, Integer readTime, 
+                  String content, LocalDateTime createdAt, LocalDateTime updatedAt, Set<Tag> tags) {
+        this.id = id;
+        this.title = title;
+        this.slug = slug;
+        this.coverImgUrl = coverImgUrl;
+        this.readTime = readTime;
+        this.content = content;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.tags = tags != null ? tags : new HashSet<>();
+    }
+    
+    // Getters and Setters
+    public UUID getId() {
+        return id;
+    }
+    
+    public void setId(UUID id) {
+        this.id = id;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    public String getSlug() {
+        return slug;
+    }
+    
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+    
+    public String getCoverImgUrl() {
+        return coverImgUrl;
+    }
+    
+    public void setCoverImgUrl(String coverImgUrl) {
+        this.coverImgUrl = coverImgUrl;
+    }
+    
+    public Integer getReadTime() {
+        return readTime;
+    }
+    
+    public void setReadTime(Integer readTime) {
+        this.readTime = readTime;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+    
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    
+    public Set<Tag> getTags() {
+        return tags;
+    }
+    
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+    
+    // equals, hashCode and toString
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(id, article.id);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", slug='" + slug + '\'' +
+                '}';
+    }
 }
