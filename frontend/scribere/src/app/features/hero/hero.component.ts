@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { TagComponent } from '../../../shared/tag/tag.component';
+import { TagComponent } from '../../shared/tag/tag.component';
 
 @Component({
   selector: 'app-hero',

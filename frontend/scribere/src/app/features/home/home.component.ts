@@ -5,7 +5,7 @@ import { finalize } from 'rxjs';
 import { StripHtmlPipe } from '../../core/pipe/striphtml';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HeroComponent } from './hero/hero.component';
+import { HeroComponent } from '../../features/hero/hero.component';
 import { TagComponent } from '../../shared/tag/tag.component';
 import { Page } from '../../model/page.model';
 
