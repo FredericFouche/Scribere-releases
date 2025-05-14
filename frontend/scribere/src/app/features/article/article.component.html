@@ -10,7 +10,7 @@
   </div>
 
   <div *ngIf="article" class="max-w-4xl mx-auto">
-    <h1 class="font-bold mb-4">{{ article.title }}</h1>
+    <h1 class="font-bold mb-4">{{ article.title | titlecase }}</h1>
     <div class="flex items-center text-sm text-neutral-500 mb-4 space-x-3">
       <span class="flex items-center gap-2">
         <div
@@ -31,7 +31,7 @@
         *ngIf="article.readTime"
         class="inline-block h-1 w-1 rounded-full bg-neutral-300"
       ></span>
-      <span *ngIf="article.readTime">{{ article.readTime }} min read</span>
+      <span *ngIf="article.readTime">{{ article.readTime | number }} </span>
     </div>
     <img
       *ngIf="article.coverImgUrl"

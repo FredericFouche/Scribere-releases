@@ -5,6 +5,7 @@ import { Article } from '../../model/article.model';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 import { SafeHtml } from '@angular/platform-browser';
+import { TitleCasePipe } from '@angular/common';
 
 /**
  * Component responsible for displaying a single article's full content
@@ -13,7 +14,7 @@ import { SafeHtml } from '@angular/platform-browser';
   selector: 'app-article',
   templateUrl: './article.component.html',
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, TitleCasePipe],
 })
 export class ArticleComponent implements OnInit {
   article: Article | null = null;
