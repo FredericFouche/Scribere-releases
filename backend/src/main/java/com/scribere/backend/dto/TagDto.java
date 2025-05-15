@@ -11,7 +11,6 @@ public class TagDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     
-    // Constructors
     public TagDto() {
     }
     
