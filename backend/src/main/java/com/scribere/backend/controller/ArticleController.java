@@ -17,7 +17,7 @@ import com.scribere.backend.dto.ArticleDto;
 import com.scribere.backend.service.ArticleService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/articles")
 public class ArticleController {
     private final ArticleService articleService;
 
@@ -31,7 +31,7 @@ public class ArticleController {
      * @param pageable Pagination information
      * @return A page of article DTOs
      */
-    @GetMapping("/articles")
+    @GetMapping("")
     public Page<ArticleDto> list(@RequestParam(required = false) Pageable pageable) {
         return articleService.findAll(pageable);
     }
@@ -43,7 +43,7 @@ public class ArticleController {
      * @param pageable Pagination information
      * @return A page of article DTOs
      */
-    @GetMapping("/articles/tag/{tag}")
+    @GetMapping("/tag/{tag}")
     public Page<ArticleDto> listByTag(@PathVariable String tag, Pageable pageable) {
         return articleService.findByTag(pageable, tag);
     }
@@ -54,7 +54,7 @@ public class ArticleController {
      * @param id The id of the article
      * @return The article DTO
      */
-    @GetMapping("/articles/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ArticleDto> get(@PathVariable UUID id) {
         return articleService.findById(id)
                 .map(ResponseEntity::ok)
@@ -67,7 +67,7 @@ public class ArticleController {
      * @param articleDto The article data transfer object
      * @return The created article
      */
-    @PostMapping("/articles")
+    @PostMapping("")
     public ResponseEntity<ArticleDto> create(@RequestBody ArticleDto articleDto) {
         ArticleDto savedArticle = articleService.save(articleDto);
         return ResponseEntity.ok(savedArticle);

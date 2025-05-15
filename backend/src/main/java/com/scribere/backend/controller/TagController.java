@@ -16,7 +16,7 @@ import com.scribere.backend.dto.TagDto;
 import com.scribere.backend.service.TagService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/tags")
 public class TagController {
     private final TagService tagService;
     
@@ -40,7 +40,7 @@ public class TagController {
      * @param name the tag name to search
      * @return a list of TagDto objects
      */
-    @GetMapping("/tags/{name}")
+    @GetMapping("/{name}")
     public List<TagDto> findByName(@PathVariable String name) {
         return tagService.findByName(name);
     }
@@ -51,7 +51,7 @@ public class TagController {
      * @param slug the slug to search
      * @return a list of TagDto objects
      */
-    @GetMapping("/tags/{slug}")
+    @GetMapping("/{slug}")
     public List<TagDto> findBySlug(@PathVariable String slug) {
         return tagService.findBySlug(slug);
     }
@@ -62,7 +62,7 @@ public class TagController {
      * @param id the tag identifier
      * @return the matching TagDto object
      */
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public TagDto findById(@PathVariable UUID id) {
         return tagService.findById(id);
     }
