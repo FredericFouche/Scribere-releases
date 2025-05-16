@@ -5,6 +5,8 @@
 
 package com.scribere.backend.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.scribere.backend.dto.UserDto;
 import com.scribere.backend.model.User;
 
@@ -12,6 +14,7 @@ import com.scribere.backend.model.User;
  *
  * @author fred
  */
+@Component
 public class UserMapper {
 
     public UserDto toDto(User user) {
