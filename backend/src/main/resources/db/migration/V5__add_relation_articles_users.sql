@@ -1,0 +1,4 @@
+ALTER TABLE users
+ADD articles_id UUID REFERENCES articles(id) ON DELETE CASCADE;
+ALTER TABLE articles
+ADD users_id UUID REFERENCES users(id) ON DELETE CASCADE;

@@ -45,6 +45,9 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+    @Column
+    private UUID articlesId;
+
     public User() {}
 
     public User(UUID id, String username, String firstname, String lastname, String email, String password, String role) {
@@ -125,6 +128,14 @@ public class User {
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 '}';
+    }
+
+    public UUID getArticles_id() {
+        return articlesId;
+    }
+
+    public void setArticles_id(UUID articles_id) {
+        this.articlesId = articles_id;
     }
 
 }

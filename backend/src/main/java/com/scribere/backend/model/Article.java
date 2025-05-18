@@ -81,6 +81,9 @@ public class Article {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column
+    private UUID usersId;
+
     /**
      * Lifecycle callback to set initial timestamps when creating an article.
      */
@@ -218,5 +221,13 @@ public class Article {
                 ", title='" + title + '\'' +
                 ", slug='" + slug + '\'' +
                 '}';
+    }
+
+    public UUID getUsers_id() {
+        return usersId;
+    }
+
+    public void setUsers_id(UUID users_id) {
+        this.usersId = users_id;
     }
 }
