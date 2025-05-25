@@ -7,16 +7,20 @@ Scribere is a modern blogging platform that enables users to create, edit, and s
 
 ## Table of Contents
 
-- [Tech Stack](#tech-stack)
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-  - [Backend Setup](#backend-setup)
-  - [Frontend Setup](#frontend-setup)
-  - [Running with Docker](#running-with-docker)
-- [Building for Production](#building-for-production)
-- [Testing](#testing)
+- [Scribere](#scribere)
+  - [Table of Contents](#table-of-contents)
+  - [Tech Stack](#tech-stack)
+  - [Features](#features)
+  - [Project Structure](#project-structure)
+  - [Prerequisites](#prerequisites)
+  - [Getting Started](#getting-started)
+    - [Backend Setup](#backend-setup)
+    - [Frontend Setup](#frontend-setup)
+    - [Running with Docker](#running-with-docker)
+  - [Building for Production](#building-for-production)
+  - [Testing](#testing)
+    - [Backend Tests](#backend-tests)
+    - [Frontend Tests](#frontend-tests)
 
 ## Tech Stack
 
@@ -146,3 +150,4 @@ Run the following command to execute all tests in the frontend:
 ```bash
 ng test
 ```
+
