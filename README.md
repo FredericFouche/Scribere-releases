@@ -21,6 +21,7 @@ Scribere is a modern blogging platform that enables users to create, edit, and s
   - [Testing](#testing)
     - [Backend Tests](#backend-tests)
     - [Frontend Tests](#frontend-tests)
+  - [TODO](#todo)
 
 ## Tech Stack
 
@@ -151,3 +152,9 @@ Run the following command to execute all tests in the frontend:
 ng test
 ```
 
+## TODO
+
+- [ ] Ajouter la gestion de l'utilisateur en front
+- [ ] Ajouter la possibilite de creer/supprimer un compte front
+- [ ] Definir le guard et les routes qui sont a proteges
+- [ ] 
