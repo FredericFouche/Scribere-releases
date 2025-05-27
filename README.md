@@ -157,4 +157,6 @@ ng test
 - [ ] Ajouter la gestion de l'utilisateur en front
 - [ ] Ajouter la possibilite de creer/supprimer un compte front
 - [ ] Definir le guard et les routes qui sont a proteges
-- [ ] 
+- [ ] Ajouter la gestion de l'utilisateur en back end
+- [ ] Hashage du mdp avec bcrypt ?
+- [ ] Creation des routes pour manager les comptes depuis un compte admin
